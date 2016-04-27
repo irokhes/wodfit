@@ -1,5 +1,5 @@
 //Imports
-
+var wodController = require('');
 var passport = require('passport');
 
 
@@ -14,7 +14,7 @@ var routes = function(app) {
      * @method InitWebSerivceRoutes
      * */
     function InitWebServiceRoutes(app) {
-        //app.route('/api/user/register/').post(usercontroller.register);
+        app.route('/api/wod/').get(wodController.getAll);
         
     }
     InitWebServiceRoutes(app);

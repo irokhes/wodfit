@@ -7,7 +7,7 @@ var app;
         $routeProvider
         .when("/workouts", {
             controller: "wodController",
-            templateUrl: "app/wod/wod.html"
+            templateUrl: "wods/wod.html"
         })
         .otherwise({ redirectTo: '/workouts' });
     });

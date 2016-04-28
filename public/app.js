@@ -9,6 +9,10 @@ var app;
             controller: "wodController",
             templateUrl: "wods/wod.html"
         })
+        .when("/Wods/new", {
+            controller: "newWodController",
+            templateUrl: "wods/newWod.html"
+        })
         .otherwise({ redirectTo: '/Wods' });
     });
 })();

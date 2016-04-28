@@ -1,6 +1,6 @@
 (function(){
     'use strict';
-    app.controller('wodController', ['$scope','$filter','wodService', function($scope, $filter, wodService){
+    app.controller('wodController', ['$scope','$location','$filter','wodService', function($scope, $location, $filter, wodService){
         $scope.workouts = [];
         $scope.totalWorkouts = 0;
         $scope.filteredWorkouts = [];

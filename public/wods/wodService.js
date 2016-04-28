@@ -4,6 +4,7 @@
         var urlBase = 'api/wod';
 
         this.getAll = function() {
+            console.log('calling ' + urlBase)
             return $http.get(urlBase);
         };
 

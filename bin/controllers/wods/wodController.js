@@ -1,5 +1,5 @@
 var BaseController = require('../basecontroller.js');
-var ValetService = require('../../services/wods/wodservice.js');
+var WodService = require('../../services/wods/wodservice.js');
 exports.getAll = function (req, res, next) {
     BaseController.call(this,req, res);
 

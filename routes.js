@@ -1,5 +1,5 @@
 //Imports
-var wodController = require('');
+var wodController = require('./bin/controllers/wods/wodcontroller.js');
 var passport = require('passport');
 
 

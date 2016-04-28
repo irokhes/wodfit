@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 var config = require('./config/appconfig.js');
 var expressValidator = require('express-validator');
 var passport = require('passport');
-//var db = require('./bin/www/models/db.js');
+var db = require('./bin/models/db.js');
 
 var TokenStrategy = require('passport-token').Strategy;
 //var authservice = require('./bin/www/services/auth/authservice.js');

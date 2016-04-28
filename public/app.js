@@ -5,10 +5,10 @@ var app;
     
     app.config(function ($routeProvider) {
         $routeProvider
-        .when("/workouts", {
+        .when("/Wods", {
             controller: "wodController",
             templateUrl: "wods/wod.html"
         })
-        .otherwise({ redirectTo: '/workouts' });
+        .otherwise({ redirectTo: '/Wods' });
     });
 })();

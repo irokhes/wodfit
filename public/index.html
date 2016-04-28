@@ -7,11 +7,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 </head>
 <body>
-<section id="body" class="container-fluid">
-<div ng-view="">
-    
+    <div id="page">
+        <header class="container" ng-controller="navigationController as vm">
+            <div id="menu" class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button class="btn btn-success navbar-toggle" ng-click="vm.navbarExpanded = !vm.navbarExpanded">
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </button>
+                    <div id="logo">
+                        <a href='#/'>
+                            <h4>WODs Tracker</h4>
+                        </a>
+                    </div>
+                </div>
+                <div class="navbar-collapse collapse" data-collapse="!vm.navbarExpanded">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li ng-class="{'active':isActive('/exercises')}"><a href="#/exercises">Exercises</a></li>
+                        <li ng-class="{'active':isActive('/wods')}"><a href="#/workouts">Workouts</a></li>
+                        <li ng-class="{'active':isActive('/maxreps')}"><a href="#/maxreps">Max Reps</a></li>
+                        <li ng-class="{'active':isActive('/about')}"><a href="#/about">About</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+    <section id="body" class="container-fluid">
+        <div ng-view="">
+            
+        </div>
+    </section>
 </div>
-</section>
+
 </body>
 
 <script type="text/javascript" src="components/angular/angular.js"></script>
@@ -22,5 +47,11 @@
 
 <!-- Load app main script -->
 <script type="text/javascript" src="app.js"></script>
+<script type="text/javascript" src="shared/navigationController.js"></script>
 
+<!--Filters-->
+<script type="text/javasript" src="shared/wodsFilter.js"></script>
+
+<!--Wods-->
 <script type="text/javascript" src="wods/wodController.js"></script>
+<script type="text/javascript" src="wods/wodService.js"></script>

@@ -16,15 +16,15 @@
         };
 
         $scope.showDetails = function(id){
-            $location.path('/wods/detail/' + id);
+            $location.path('/wod/detail/' + id);
         };
 
         $scope.newWorkout = function () {
-            $location.path('/wods/edit');
+            $location.path('/wod/edit');
         }
 
         $scope.edit = function (id) {
-            $location.path('/wods/edit/' + id);
+            $location.path('/wod/edit/' + id);
         }
 
         $scope.delete = function () {

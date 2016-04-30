@@ -1,5 +1,6 @@
 //Imports
 var wodController = require('./bin/controllers/wods/wodcontroller.js');
+var exerciseController = require('./bin/controllers/exercises/exercisecontroller.js');
 var passport = require('passport');
 
 
@@ -15,6 +16,7 @@ var routes = function(app) {
      * */
     function InitWebServiceRoutes(app) {
         app.route('/api/wod/').get(wodController.getAll);
+        app.route('/api/exercise/').get(exerciseController.getAll);
         
     }
     InitWebServiceRoutes(app);

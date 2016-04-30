@@ -1,0 +1,118 @@
+<form class="form-horizontal">
+    <div class="form-group">
+        <label for="inputName" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-8">
+            <input type="text" ng-model="wod.name" class="form-control" id="inputName" placeholder="wod Name">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputDescription" class="col-sm-2 control-label">WOD Description</label>
+        <div class="col-sm-8">
+            <input type="text" ng-model="wod.description" class="form-control" id="inputDescription" placeholder="Description">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputCalendar" class="col-sm-2 control-label">Date</label>
+        <div class="col-sm-8">
+            <p class="input-group">
+                <input type="text" id="inputCalendar" class="form-control" datepicker-popup="{{format}}"  ng-model="wod.date" is-open="opened" min-date="2015-01-01" max-date="'2055-06-22'" datepicker-options="dateOptions" show-weeks="false" ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="typeOfWOd" class="col-sm-2 control-label">Type of WOD</label>
+        <div class="col-sm-8">
+            <select ng-model="wod.wodType" id="typeOfWOd" class="form-control" ng-options="item for item in typeOfwod"></select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="typeOfWOd" class="col-sm-2 control-label">Time</label>
+        <div class="col-sm-2">
+            <div class="col-sm-5">
+                <input type="text" ng-model="wod.minutes" class="form-control" id="inputDescription" placeholder="00">
+            </div>
+            <div class="col-sm-1">
+                <span class="vertical-align">:</span>
+            </div>
+            <div class="col-sm-5">
+                <input type="text" ng-model="wod.seconds" class="form-control" id="inputDescription" placeholder="00">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputRoudsOrReps" class="col-sm-2 control-label">Number Rounds/Reps</label>
+        <div class="col-sm-8">
+            <input type="text" ng-model="wod.roundsOrTotalReps" class="form-control" id="inputRoudsOrReps" placeholder="Num Rounds or Reps">
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Exercises</label>
+        <div class="col-sm-8">
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Num Reps</th>
+                        <th>Weight or Distance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="exercise in wod.exercises">
+                        <td>
+                            <span>{{exercise.name}}</span>
+                        </td>
+                        <td><span>{{exercise.numReps}}</span></td>
+                        <td>
+                            <div>
+                                <span>{{exercise.weightOrDistance}}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <button class="btn-group" data-ng-click="deleteExercise(exercise)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+        
+    <div class="well well-sm form-horizontal col-lg-8 col-lg-offset-2">
+        <div class="form-group col-lg-4">
+            <label for="inputNewExerciseName" class="sr-only">Exercise Name</label>
+            <div>
+                <input type="text" name="name" placeholder="Exercise" ng-model="selectedExercise" list="_exercises" class="form-control">
+                    <datalist id="_exercises">
+                        <option  data-ng-repeat="exercise in exercises" value="{{exercise.name}}">
+                    </datalist> 
+            </div>
+        </div>
+
+        <div class="form-group col-lg-2">
+            <label for="inputNewExerciseReps" class="sr-only">N. Reps</label>
+            <div>
+                <input type="text" id="inputNewExerciseReps" ng-model="newExercise.Reps" class="form-control" placeholder="N. Reps">
+            </div>
+        </div>
+        <div class="form-group col-lg-4">
+            <label for="inputNewExerciseWeight" class="sr-only">Weight/Distance</label>
+            <div>
+                <input type="text" id="inputNewExerciseWeight" auto-complete ui-items="exercises" ng-model="newExercise.weightOrDistance" class="form-control" placeholder="Weight/Distance">
+            </div>
+        </div>
+
+        <button type="button" ng-disabled="!isExerciseSelected" ng-click="addExercise()" class="btn"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add Exercise</button>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-8">
+            <button type="button" ng-click="save()" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;Save</button>
+        </div>
+    </div>
+</form>

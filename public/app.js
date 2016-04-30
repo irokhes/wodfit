@@ -5,14 +5,14 @@ var app;
     
     app.config(function ($routeProvider) {
         $routeProvider
-        .when("/Wods", {
+        .when("/wod", {
             controller: "wodController",
             templateUrl: "wods/wod.html"
         })
-        .when("/Wods/new", {
-            controller: "newWodController",
-            templateUrl: "wods/newWod.html"
+        .when("/wod/edit", {
+            controller: "editWodController",
+            templateUrl: "wods/editWod.html"
         })
-        .otherwise({ redirectTo: '/Wods' });
+        .otherwise({ redirectTo: '/wod' });
     });
 })();

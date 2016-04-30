@@ -4,13 +4,7 @@
         var urlBase = 'api/exercise';
 
         this.getAll = function () {
-            var deferred = $q.defer();
-            $http.get(urlBase).then(function(result){
-                console.log(result);
-                deferred.resolve(result.data.data);
-            });
-            return deferred.promise;
-
+            return $http.get(urlBase)
         };
 
         this.get = function (id) {

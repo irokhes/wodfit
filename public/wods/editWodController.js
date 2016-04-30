@@ -19,7 +19,7 @@
 
         function init() {
             exerciseService.getAll().then(function (exercises) {
-                $scope.exercises = exercises;
+                $scope.exercises = exercises.data;
                 $scope.wod = { minutes: 0, seconds:0 };
                 if (typeof $routeParams.id !== 'undefined') {
                     wodService.get($routeParams.id).then(function (wod) {
@@ -105,12 +105,12 @@
         $scope.save = function () {
             var minutes = $scope.wod.minutes === undefined ? 0 : $scope.wod.minutes;
             var seconds = $scope.wod.seconds === undefined ? 0 : $scope.wod.seconds;
-            $scope.wod.time = '0:' + minutes + ':' + seconds;
-            $scope.wod.deletedExercises = $scope.deletedExercises;
-
-            wodService.save($scope.wod.id, $scope.wod, $scope.files)
+            $scope.wod.time =  minutes.toString()  + seconds.toString();
+            var wodExercises = angular.toJson($scope.wod.exercises);
+            $scope.wod.exercises = JSON.parse(wodExercises);                
+            wodService.save($scope.wod.id, $scope.wod)
             .success(function (data) {
-                $location.path('/wod');
+                $location.path( '/wod');
             }).
             error(function (error) {
                 $scope.status = 'Unable to load exercises: ' + error.message;

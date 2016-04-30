@@ -13,8 +13,8 @@ ExerciseService.prototype.getAll = function(){
     var self = this;
     return  new promise(function(resolve, reject){
        return Exercise.find().exec().then(function(result){
-           self.setModel(result);
-           return resolve(self._success());
+           console.log(result);
+           return resolve(result);
        });
     });
 }

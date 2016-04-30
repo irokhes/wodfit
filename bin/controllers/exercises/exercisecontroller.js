@@ -6,6 +6,7 @@ exports.getAll = function (req, res, next) {
     var self = this;
     var service = new ExerciseService();
     service.getAll().then(function(result) {
+        console.log(result);
         return self.responseJSON(res,result);
     }).catch(function(err) {
         return self.responseError(res, err, 500);

@@ -6,8 +6,8 @@
             var matches = [];
 
             for (var i = 0; i < workouts.length; i++) {
-                var isTheRightWOD = typeofWOD === 'All' || workouts[i].WODType === typeofWOD;
-                var containsSearchTerms = workouts[i].Name.toLowerCase().indexOf(filterValue.toLowerCase()) > -1;
+                var isTheRightWOD = typeofWOD === 'All' || workouts[i].type === typeofWOD;
+                var containsSearchTerms = workouts[i].name.toLowerCase().indexOf(filterValue.toLowerCase()) > -1;
 
                 if (containsSearchTerms && isTheRightWOD) {
                     matches.push(workouts[i]);

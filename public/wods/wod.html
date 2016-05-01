@@ -13,23 +13,57 @@
                 <button class="btn btn-primary btn-block pull-right" data-ng-click="newWorkout()"><span class="glyphicon glyphicon-plus"></span>New</button>
             </div>
         </div>
-        <div class="well well-sm" ng-show="totalWorkouts == 0">
+        <div class="well well-sm" ng-show="totalFilteredWorkouts == 0">
             <h5>No Workouts found</h5>
         </div>
          <div ng-show="totalWorkouts > 0">
             <uib-accordion>
                 <uib-accordion-group ng-repeat="wod in filteredWorkouts">
                     <uib-accordion-heading >
-                    {{wod.name}}
-                      <i class="pull-right glyphicon"
-                            ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
+                        <div class="row vertical-align">
+                            <div class="col-xs-6 col-md-6">{{wod.name}}</div>
+                            <div class="col-xs-2 col-md-2">{{wod.date | date:'dd-MM-yyyy'}}</div>
+                            <i class="pull-right glyphicon"
+                                    ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
+                        </div>            
                   </uib-accordion-heading>
-                <ul>
-                    <li ng-repeat="exercise in wod.exercises">{{exercise.name}}</li>
-                </ul>
+                    <div>Total time of the Wod: {{wod.time | timeFilter}}</div>
+                    <ul>
+                        <li ng-repeat="exercise in wod.exercises">{{exercise.name}}</li>
+                    </ul>
                 </uib-accordion-group>   
             </uib-accordion>
          </div>
+        <div ng-show="totalWorkouts > 0">
+            <ul class="list-group" ng-repeat="workout in filteredWorkouts">
+                <li class="list-group-item">
+                    <div class="row vertical-align">
+                        <div class="col-xs-6 col-md-6">
+                            <a href="" ng-click="showDetails(workout.id)">
+                                <h2>{{workout.name}}</h2>
+                            </a><br />
+                            <span>{{workout.description}}</span>
+                        </div>
+                        <div class="col-xs-2 col-md-2">
+                            {{workout.wodType}}
+                        </div>
+                        <div class="col-xs-2 col-md-2">
+                            {{workout.date | date:'dd-MM-yyyy'}}
+                        </div>
+                        <div class=" col-xs-2 col-md-2 btn-group btn-group-sm">
+                            <button class="btn-group" data-ng-click="edit(workout.id)"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button class="btn-group" data-ng-click="delete(workout.id)"><span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2 col-md-1">
+
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+            </div>
             <div class="row">
 
                 <div class="col-md-offset-2 col-md-8 col-md-offset-2 text-center">

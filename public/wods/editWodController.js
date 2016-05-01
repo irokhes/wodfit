@@ -6,14 +6,21 @@
         $scope.wod = {};
         $scope.newExercise = {};
 
-        $scope.typeOfwod = ['AMRAP', 'EMOM', 'AFAP', 'PowerLifting'];
+        $scope.typeOfwod = ['AMRAP', 'EMOM', 'AFAP','Rounds with break', 'PowerLifting'];
         $scope.wod.wodType = $scope.typeOfwod[0];
-        $scope.deletedExercises = [];
-        $scope.exercises = {};
+
+        $scope.repsInRounds = [];
+        $scope.isRoundWithBreak = false;
         
+        $scope.exercises = {};
         $scope.selectedExercise = '';
         $scope.isExerciseSelected = true;
-
+        
+        $scope.typeOfWodChanged = typeOfWodChanged;
+        $scope.addExercise = addExercise;
+        $scope.deleteExercise = deleteExercise;
+        $scope.save = save;
+        $scope.checkIfRoundsChanged = checkIfRoundsChanged;
         init();
 
 
@@ -43,8 +50,24 @@
         function getSeconds(timespan) {
             return timespan.split(':')[2];
         }
+        
+        function converTimeToString(){
+            var minutes;
+            var seconds;
+            if($scope.wod.minutes === undefined){
+                minutes = '00';
+            }else{
+                minutes = $scope.wod.minutes < 10 ? '0' + $scope.wod.minutes : $scope.wod.minutes;
+            }
+            if($scope.wod.seconds === undefined){
+                seconds = '00';
+            }else{
+                seconds = $scope.wod.seconds < 10 ? '0' + $scope.wod.seconds : $scope.wod.seconds;
+            }
+            return minutes.toString()  + seconds.toString();
+        }
 
-        $scope.addExercise = function () {
+        function addExercise () {
             if($scope.wod.exercises === undefined){
                 $scope.wod.exercises = [];
             }
@@ -52,17 +75,21 @@
             resetNewExercise();
         };
 
-        $scope.deleteExercise = function (exercise) {
+        function deleteExercise (exercise) {
             var index = $scope.wod.exercises.indexOf(exercise);
             $scope.wod.exercises.splice(index, 1);
         }
-
-        $scope.deleteImage = function (image) {
-            var index = $scope.wod.images.indexOf(image);
-            $scope.deletedExercises.push($scope.wod.images[index]);
-            $scope.wod.images.splice(index, 1);
+        
+        function typeOfWodChanged (){
+            if($scope.wod.wodType === 'Rounds with break'){
+                $scope.isRoundWithBreak = true;
+                $scope.repsInRounds = Array(+$scope.wod.roundsOrTotalReps).fill(0);
+                
+            }else{
+                $scope.isRoundWithBreak = false;
+            }
         }
-
+        
         function resetNewExercise() {
             $scope.newExercise = {};
             $scope.selectedExercise = '';
@@ -101,13 +128,21 @@
         $scope.format = $scope.formats[0];
         //End calendar code
 
+        function checkIfRoundsChanged(){
+            if($scope.isRoundWithBreak){
+                if ( !isNaN($scope.wod.roundsOrTotalReps) && angular.isNumber(+$scope.wod.roundsOrTotalReps)) {
+                    if($scope.repsInRounds.length != $scope.wod.roundsOrTotalReps){
+                        $scope.repsInRounds = Array(+$scope.wod.roundsOrTotalReps).fill(0);
+                    }
+                }
+            }
+        }
         //the save method
-        $scope.save = function () {
-            var minutes = $scope.wod.minutes === undefined ? 0 : $scope.wod.minutes;
-            var seconds = $scope.wod.seconds === undefined ? 0 : $scope.wod.seconds;
-            $scope.wod.time =  minutes.toString()  + seconds.toString();
+        function save () {
+            $scope.wod.time =  converTimeToString();
             var wodExercises = angular.toJson($scope.wod.exercises);
-            $scope.wod.exercises = JSON.parse(wodExercises);                
+            $scope.wod.exercises = JSON.parse(wodExercises);
+            var v = $scope.repsInRounds;                
             wodService.save($scope.wod.id, $scope.wod)
             .success(function (data) {
                 $location.path( '/wod');

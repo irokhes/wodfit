@@ -10,6 +10,7 @@
         $scope.wod.wodType = $scope.typeOfwod[0];
 
         $scope.repsInRounds = [];
+        $scope.timeBetweenSeries = 0;
         $scope.isRoundWithBreak = false;
         
         $scope.exercises = {};
@@ -155,6 +156,7 @@
             if($scope.isRoundWithBreak){
                 var repsInRounds = angular.toJson($scope.repsInRounds);
                 $scope.wod.repsInRounds = JSON.parse(repsInRounds);
+                $scope.wod.timeBetweenSeries = $scope.timeBetweenSeries;
             }
         }
         //the save method

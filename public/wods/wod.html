@@ -45,6 +45,15 @@
                     </div>
                     <div ng-show="isRoundsWithTimeType(wod.type)">
                         <reps-in-rounds read-only="true" reps-in-rounds="wod.repsInRounds"></reps-in-rounds>
+                        <div class="form-group">
+                            <label for="timeOfRest" class="col-sm-2 control-label">Rest between:</label>
+                            <div class="col-sm-8">
+                                <span>{{wod.timeBetweenSeries}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        
                     </div>
                 </uib-accordion-group>   
             </uib-accordion>

@@ -8,7 +8,6 @@
         };
         
         this.save = function(id, wod){
-            console.log(JSON.stringify(wod));
              return $http.post(urlBase,
                 JSON.stringify(wod),
                 {

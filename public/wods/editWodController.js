@@ -1,12 +1,12 @@
 (function () {
     'use strict';
-    app.controller('editWodController', ['$scope', '$location', '$routeParams', 'wodService', 'exerciseService', function ($scope, $location, $routeParams, wodService, exerciseService) {
+    app.controller('editWodController', ['$scope', '$location', '$routeParams','WOD_TYPE', 'wodService', 'exerciseService', function ($scope, $location, $routeParams,WOD_TYPE, wodService, exerciseService) {
 
 
         $scope.wod = {};
         $scope.newExercise = {};
 
-        $scope.typeOfwod = ['AMRAP', 'EMOM', 'AFAP','Rounds with break', 'PowerLifting'];
+        $scope.typeOfwod = [WOD_TYPE.ALL, WOD_TYPE.AMRAP,WOD_TYPE.EMOM, WOD_TYPE.AFAP, WOD_TYPE.ROUNDS_WITH_BREAK,WOD_TYPE.ROUNDS_FOR_TIME];
         $scope.wod.wodType = $scope.typeOfwod[0];
 
         $scope.repsInRounds = [];
@@ -71,7 +71,9 @@
             if($scope.wod.exercises === undefined){
                 $scope.wod.exercises = [];
             }
-            $scope.wod.exercises.push({ name: $scope.selectedExercise, numReps: $scope.newExercise.Reps, weightOrDistance: $scope.newExercise.weightOrDistance });
+            $scope.wod.exercises.push({ name: $scope.selectedExercise,
+                                        numReps: $scope.newExercise.Reps, 
+                                        weightOrDistance: $scope.newExercise.weightOrDistance });
             resetNewExercise();
         };
 
@@ -81,9 +83,9 @@
         }
         
         function typeOfWodChanged (){
-            if($scope.wod.wodType === 'Rounds with break'){
+            if($scope.wod.wodType === WOD_TYPE.ROUNDS_WITH_BREAK){
                 $scope.isRoundWithBreak = true;
-                $scope.repsInRounds = Array(+$scope.wod.roundsOrTotalReps).fill(0);
+                initializeRepsInRounds();
                 
             }else{
                 $scope.isRoundWithBreak = false;
@@ -132,22 +134,36 @@
             if($scope.isRoundWithBreak){
                 if ( !isNaN($scope.wod.roundsOrTotalReps) && angular.isNumber(+$scope.wod.roundsOrTotalReps)) {
                     if($scope.repsInRounds.length != $scope.wod.roundsOrTotalReps){
-                        $scope.repsInRounds = Array(+$scope.wod.roundsOrTotalReps).fill(0);
+                        initializeRepsInRounds();
                     }
                 }
             }
         }
-        //the save method
-        function save () {
+        
+        function initializeRepsInRounds(){
+            $scope.repsInRounds = Array(+$scope.wod.roundsOrTotalReps); 
+            for(var i = 0; i < +$scope.wod.roundsOrTotalReps; i++){
+                $scope.repsInRounds[i] = {reps:0};
+            }
+        }
+        function prepareDataForSaving(){
             $scope.wod.time =  converTimeToString();
             var wodExercises = angular.toJson($scope.wod.exercises);
             $scope.wod.exercises = JSON.parse(wodExercises);
-            var v = $scope.repsInRounds;                
+            
+            
+            if($scope.isRoundWithBreak){
+                var repsInRounds = angular.toJson($scope.repsInRounds);
+                $scope.wod.repsInRounds = JSON.parse(repsInRounds);
+            }
+        }
+        //the save method
+        function save () {
+            prepareDataForSaving();
             wodService.save($scope.wod.id, $scope.wod)
             .success(function (data) {
                 $location.path( '/wod');
-            }).
-            error(function (error) {
+            }).error(function (error) {
                 $scope.status = 'Unable to load exercises: ' + error.message;
                 console.error('Unable to load exercises: ' + error.message);
             });

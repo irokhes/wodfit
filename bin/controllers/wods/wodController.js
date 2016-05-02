@@ -19,10 +19,11 @@ exports.create = function (req, res, next) {
     var date = req.body.date;
     var time = req.body.time;
     var exercises = req.body.exercises;
+    var repsInRounds = req.body.repsInRounds;
     
     var self = this;
     var service = new WodService();
-    service.save(name, type, date, time, exercises).then(function(result) {
+    service.save(name, type, date, time, exercises, repsInRounds).then(function(result) {
         return self.responseJSON(res,result);
     }).catch(function(err) {
         return self.responseError(res, err, 500);

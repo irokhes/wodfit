@@ -18,7 +18,7 @@ WodService.prototype.getAll = function(){
     });
 }
 
-WodService.prototype.save = function(name, type, date, time, exercises){
+WodService.prototype.save = function(name, type, date, time, exercises, repsInRounds){
     var self = this;
     return new promise(function(resolve, reject){
         var wod = new Wod({
@@ -28,9 +28,13 @@ WodService.prototype.save = function(name, type, date, time, exercises){
            time: time,
            exercises: exercises
         });
+        if(repsInRounds !== undefined){
+            wod.repsInRounds = repsInRounds;
+        }
         return wod.save().then(function (result) {
             return resolve(result);
         }).catch(function(err){
+            console.log(err);
             return reject(err);
         });   
     });  

@@ -1,19 +1,25 @@
 (function(){
     'use strict';
-    app.controller('wodController', ['$scope','$location','$filter','wodService', function($scope, $location, $filter, wodService){
+    app.controller('wodController', ['$scope','$location','$filter','WOD_TYPE','wodService', function($scope, $location, $filter,WOD_TYPE, wodService){
+        $scope.isReadOnly = true;
         $scope.workouts = [];
         $scope.totalWorkouts = 0;
         $scope.filteredWorkouts = [];
         $scope.totalFilteredWorkouts = 0;
-        $scope.typeOfWorkout = ['All', 'AMRAP','EMOM', 'AFAP', 'PowerLifting'];
+        $scope.typeOfWorkout = [WOD_TYPE.ALL, WOD_TYPE.AMRAP,WOD_TYPE.EMOM, WOD_TYPE.AFAP, WOD_TYPE.ROUNDS_WITH_BREAK,WOD_TYPE.ROUNDS_FOR_TIME];
         $scope.selectedWOD = $scope.typeOfWorkout[0];
         $scope.filterValue = '';
-
+        $scope.isRoundsWithTimeType = isRoundsWithTimeType;
+        
         init();
 
         function init() {
             getWorkouts();
         };
+        
+        function isRoundsWithTimeType(wodType) {
+            return wodType === WOD_TYPE.ROUNDS_WITH_BREAK;
+        }
 
         $scope.showDetails = function(id){
             $location.path('/wod/detail/' + id);

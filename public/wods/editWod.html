@@ -49,13 +49,13 @@
             <input type="text" ng-model="wod.roundsOrTotalReps" ng-blur="checkIfRoundsChanged()" class="form-control" id="inputRoudsOrReps" placeholder="Num Rounds or Reps">
         </div>
     </div>
+    {{repsInRounds}}
     <div ng-show="isRoundWithBreak">
-        <reps-in-rounds ui-if="repsInRounds"></reps-in-rounds>
+        <reps-in-rounds read-only="false" reps-in-rounds="repsInRounds"></reps-in-rounds>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">Exercises</label>
         <div class="col-sm-8">
-
             <table class="table table-condensed">
                 <thead>
                     <tr>

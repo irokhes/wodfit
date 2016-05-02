@@ -28,9 +28,17 @@
                         </div>            
                   </uib-accordion-heading>
                     <div>Total time of the Wod: {{wod.time | timeFilter}}</div>
-                    <ul>
-                        <li ng-repeat="exercise in wod.exercises">{{exercise.name}}</li>
+                    <div class="container">
+                    <ul class="no-bullet">
+                        <li ng-repeat="exercise in wod.exercises">
+                            <div class="col-sm-6">{{exercise.name}}</div>
+                            <div class="col-sm-2">{{exercise.numReps}} reps</div>
+                        </li>
                     </ul>
+                    </div>
+                    <div ng-show="isRoundsWithTimeType(wod.type)">
+                        <reps-in-rounds read-only="true" reps-in-rounds="wod.repsInRounds"></reps-in-rounds>
+                    </div>
                 </uib-accordion-group>   
             </uib-accordion>
          </div>

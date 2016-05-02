@@ -22,19 +22,24 @@
                     <uib-accordion-heading >
                         <div class="row vertical-align">
                             <div class="col-xs-6 col-md-6">{{wod.name}}</div>
-                            <div class="col-xs-2 col-md-2">{{wod.date | date:'dd-MM-yyyy'}}</div>
-                            <i class="pull-right glyphicon"
+                            <div class="pull-right">
+                                {{wod.date | date:'dd-MM-yyyy'}}
+                                <i class="pull-right glyphicon"
                                     ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
+                            </div>
+                            
                         </div>            
                   </uib-accordion-heading>
-                    <div>Total time of the Wod: {{wod.time | timeFilter}}</div>
+                    <div class="container">Total time of the Wod: {{wod.time | timeFilter}}</div>
                     <div class="container">
-                    <ul class="no-bullet">
-                        <li ng-repeat="exercise in wod.exercises">
-                            <div class="col-sm-6">{{exercise.name}}</div>
-                            <div class="col-sm-2">{{exercise.numReps}} reps</div>
-                        </li>
-                    </ul>
+                        <ul class="no-bullet">
+                            <li ng-repeat="exercise in wod.exercises">
+                                <div class="row">
+                                    <div class="col-sm-4">{{exercise.name}}</div>
+                                    <div class="col-sm-2">{{exercise.numReps}} reps</div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                     <div ng-show="isRoundsWithTimeType(wod.type)">
                         <reps-in-rounds read-only="true" reps-in-rounds="wod.repsInRounds"></reps-in-rounds>
@@ -42,51 +47,5 @@
                 </uib-accordion-group>   
             </uib-accordion>
          </div>
-        <div ng-show="totalWorkouts > 0">
-            <ul class="list-group" ng-repeat="workout in filteredWorkouts">
-                <li class="list-group-item">
-                    <div class="row vertical-align">
-                        <div class="col-xs-6 col-md-6">
-                            <a href="" ng-click="showDetails(workout.id)">
-                                <h2>{{workout.name}}</h2>
-                            </a><br />
-                            <span>{{workout.description}}</span>
-                        </div>
-                        <div class="col-xs-2 col-md-2">
-                            {{workout.wodType}}
-                        </div>
-                        <div class="col-xs-2 col-md-2">
-                            {{workout.date | date:'dd-MM-yyyy'}}
-                        </div>
-                        <div class=" col-xs-2 col-md-2 btn-group btn-group-sm">
-                            <button class="btn-group" data-ng-click="edit(workout.id)"><span class="glyphicon glyphicon-pencil"></span></button>
-                            <button class="btn-group" data-ng-click="delete(workout.id)"><span class="glyphicon glyphicon-remove"></span></button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-2 col-md-1">
-
-                        </div>
-                    </div>
-
-                </li>
-            </ul>
-            </div>
-            <div class="row">
-
-                <div class="col-md-offset-2 col-md-8 col-md-offset-2 text-center">
-                    <div ng-show="totalWorkouts > 0">
-                        <div>
-                            <div data-pagination="" data-previous-text="<" data-next-text=">" data-first-text="<<" data-last-text=">>"
-                                 data-on-select-page="pageChanged(page)" data-total-items="totalWorkouts" data-page="currentPage"
-                                 data-boundary-links="true" class="pagination pagination-sm" data-max-size="1" data-rotate="false" data-items-per-page="10">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-
     </form>
 </div>

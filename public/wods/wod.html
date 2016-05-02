@@ -30,16 +30,18 @@
                             
                         </div>            
                   </uib-accordion-heading>
-                    <div class="container">Total time of the Wod: {{wod.time | timeFilter}}</div>
-                    <div class="container">
-                        <ul class="no-bullet">
-                            <li ng-repeat="exercise in wod.exercises">
-                                <div class="row">
-                                    <div class="col-sm-4">{{exercise.name}}</div>
-                                    <div class="col-sm-2">{{exercise.numReps}} reps</div>
-                                </div>
-                            </li>
-                        </ul>
+                    <div class="container-fluid">Total time of the Wod: {{wod.time | timeFilter}}</div>
+                    <div class="container-fluid">
+                        <table class="table table-striped">
+                            <thead>
+                                <th>Exercise name</th>
+                                <th>Num of reps</th>
+                            </thead>
+                            <tr ng-repeat="exercise in wod.exercises">
+                                <td>{{exercise.name}}</td>
+                                <td>{{exercise.numReps}}</td>
+                            </tr>
+                        </table>
                     </div>
                     <div ng-show="isRoundsWithTimeType(wod.type)">
                         <reps-in-rounds read-only="true" reps-in-rounds="wod.repsInRounds"></reps-in-rounds>

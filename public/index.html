@@ -23,9 +23,9 @@
                 </div>
                 <div class="navbar-collapse collapse" data-collapse="!vm.navbarExpanded">
                     <ul class="nav navbar-nav navbar-right">
-                        <li ng-class="{'active':isActive('/exercises')}"><a href="#/exercises">Exercises</a></li>
-                        <li ng-class="{'active':isActive('/wods')}"><a href="#/workouts">Workouts</a></li>
-                        <li ng-class="{'active':isActive('/maxreps')}"><a href="#/maxreps">Max Reps</a></li>
+                        <li ng-class="{'active':isActive('/exercise')}"><a href="#/exercise">Exercises</a></li>
+                        <li ng-class="{'active':isActive('/wod')}"><a href="#/wod">WODs</a></li>
+                        <li ng-class="{'active':isActive('/maxrep')}"><a href="#/maxrep">Max Reps</a></li>
                         <li ng-class="{'active':isActive('/about')}"><a href="#/about">About</a></li>
                     </ul>
                 </div>
@@ -55,6 +55,7 @@
 <!--Filters-->
 <script type="text/javascript" src="shared/filters/wodsFilter.js"></script>
 <script type="text/javascript" src="shared/filters/timeFilter.js"></script>
+<script type="text/javascript" src="shared/filters/maxRepFilter.js"></script>
 
 <!--Directives-->
 <script type="text/javascript" src="shared/directives/repsInRounds.js"></script>
@@ -69,3 +70,7 @@
 
 <!--Exercises-->
 <script type="text/javascript" src="exercises/exerciseService.js"></script>
+
+<!--Max Reps-->
+<script type="text/javascript" src="maxReps/maxRepController.js"></script>
+<script type="text/javascript" src="maxReps/maxRepService.js"></script>

@@ -13,6 +13,10 @@ var app;
             controller: "editWodController",
             templateUrl: "wods/editWod.html"
         })
+        .when("/maxrep", {
+            controller: "maxRepController",
+            templateUrl: "maxReps/maxRep.html"
+        })
         .otherwise({ redirectTo: '/wod' });
     });
 })();

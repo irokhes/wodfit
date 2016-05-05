@@ -1,4 +1,4 @@
-var baseService = require('../baseservice.js');
+var baseService = require('../baseService.js');
 
 var MaxRep = require('../../models/maxRep.js');
 var util = require('util');

@@ -1,4 +1,4 @@
-var baseService = require('../baseservice.js');
+var baseService = require('../baseService.js');
 
 var Wod = require('../../models/wod.js');
 var util = require('util');

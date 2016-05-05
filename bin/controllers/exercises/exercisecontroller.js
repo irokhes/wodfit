@@ -1,5 +1,5 @@
-var BaseController = require('../basecontroller.js');
-var ExerciseService = require('../../services/exercises/exerciseservice.js');
+var BaseController = require('../baseController.js');
+var ExerciseService = require('../../services/exercises/exercieService.js');
 exports.getAll = function (req, res, next) {
     BaseController.call(this,req, res);
 

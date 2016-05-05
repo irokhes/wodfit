@@ -1,7 +1,7 @@
 //Imports
-var wodController = require('./bin/controllers/wods/wodController.js');
-var exerciseController = require('./bin/controllers/exercises/exerciseController.js');
-var maxRepController = require('./bin/controllers/maxreps/maxrepController.js');
+var wodController = require('./bin/controllers/wods/wodcontroller.js');
+var exerciseController = require('./bin/controllers/exercises/exercisecontroller.js');
+var maxRepController = require('./bin/controllers/maxreps/maxrepcontroller.js');
 var passport = require('passport');
 
 

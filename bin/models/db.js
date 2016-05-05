@@ -2,7 +2,7 @@
 var mongoose = require( 'mongoose' ); 
 
 // Build the connection string 
-var dbURI = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/paytickets'
+var dbURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/wodfit'
 
 // Create the database connection 
 mongoose.connect(dbURI); 

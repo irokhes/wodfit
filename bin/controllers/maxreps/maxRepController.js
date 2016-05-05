@@ -1,5 +1,5 @@
-var BaseController = require('../baseController.js');
-var MaxRepService = require('../../services/maxreps/maxrepService.js');
+var BaseController = require('../basecontroller.js');
+var MaxRepService = require('../../services/maxreps/maxrepservice.js');
 exports.getAll = function (req, res, next) {
     BaseController.call(this,req, res);
 

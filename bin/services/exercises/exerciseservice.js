@@ -1,4 +1,4 @@
-var baseService = require('../baseService.js');
+var baseService = require('../baseservice.js');
 
 var Exercise = require('../../models/exercise.js');
 var util = require('util');

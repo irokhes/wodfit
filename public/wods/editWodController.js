@@ -51,6 +51,8 @@
                         typeOfWodChanged();
                         checkIfRoundsChanged();
                     })
+                }else{
+                    $scope.wod.date = new Date();
                 }
 
             }).catch(function (error) {

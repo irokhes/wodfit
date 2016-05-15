@@ -15,7 +15,6 @@
         <label for="inputCalendar" class="col-sm-2 control-label">Date</label>
         <div class="col-sm-8">
             <p class="input-group">
-                {{wod.date}}
                 <input type="text" id="inputCalendar" class="form-control" uib-datepicker-popup="{{format}}"  ng-model="wod.date" is-open="opened" min-date="2015-01-01" max-date="'2055-06-22'" datepicker-options="dateOptions" show-weeks="false" ng-required="true" close-text="Close" />
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>

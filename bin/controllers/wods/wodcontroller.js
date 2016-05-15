@@ -68,7 +68,6 @@ exports.update = function (req, res, next) {
     service.update(id, options).then(function(result) {
         return self.responseJSON(res,result);
     }).catch(function(err) {
-        console.log(err);
         return self.responseError(res, err, 500);
     });
 }

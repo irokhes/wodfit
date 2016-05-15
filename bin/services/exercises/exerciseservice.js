@@ -9,6 +9,14 @@ function ExerciseService() {
 }
 util.inherits(ExerciseService, baseService);
 
+ExerciseService.prototype.get = function(id){
+    var self = this;
+    return  new promise(function(resolve, reject){
+       return Exercise.findById(id).exec().then(function(result){
+           return resolve(result);
+       });
+    });
+}
 ExerciseService.prototype.getAll = function(){
     var self = this;
     return  new promise(function(resolve, reject){

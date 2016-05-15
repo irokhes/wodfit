@@ -5,9 +5,10 @@ var wodSchema = new mongoose.Schema({
     type: {type: String, enum: ['EMOM', 'AMRAP', 'AFAP','ROUNDS FOR TIME', 'ROUNDS WITH BREAK']},
     date: {type : Date, default: Date.now},
     time: {type: String},
-    repsOrRounds: {type: Number},
+    roundsOrTotalReps: {type: Number},
     repsInRounds: {type: Array},
-    exercises: {type: Array}
+    exercises: {type: Array},
+    timeBetweenSeries: {type: Number}
 });
 
 

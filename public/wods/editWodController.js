@@ -1,13 +1,13 @@
 (function () {
     'use strict';
-    app.controller('editWodController', ['$scope', '$location', '$routeParams','WOD_TYPE', 'wodService', 'exerciseService', function ($scope, $location, $routeParams,WOD_TYPE, wodService, exerciseService) {
+    app.controller('editWodController', ['$scope','$q', '$location', '$routeParams','WOD_TYPE', 'wodService', 'exerciseService','dataService', function ($scope, $q, $location, $routeParams,WOD_TYPE, wodService, exerciseService, dataService) {
 
-
+        $scope.isEditMode = false;
         $scope.wod = {};
         $scope.newExercise = {};
 
         $scope.typeOfwod = [WOD_TYPE.ALL, WOD_TYPE.AMRAP,WOD_TYPE.EMOM, WOD_TYPE.AFAP, WOD_TYPE.ROUNDS_WITH_BREAK,WOD_TYPE.ROUNDS_FOR_TIME];
-        $scope.wod.wodType = $scope.typeOfwod[0];
+        $scope.wod.type = $scope.typeOfwod[0];
 
         $scope.repsInRounds = [];
         $scope.timeBetweenSeries = 0;
@@ -22,6 +22,8 @@
         $scope.deleteExercise = deleteExercise;
         $scope.save = save;
         $scope.checkIfRoundsChanged = checkIfRoundsChanged;
+        $scope.delete = deleteWod;
+        $scope.edit = edit;
         init();
 
 
@@ -29,13 +31,26 @@
             exerciseService.getAll().then(function (exercises) {
                 $scope.exercises = exercises.data;
                 $scope.wod = { minutes: 0, seconds:0 };
-                if (typeof $routeParams.id !== 'undefined') {
-                    wodService.get($routeParams.id).then(function (wod) {
-                        $scope.wod = wod.data;
 
+                if (typeof $routeParams.id !== 'undefined') {
+                    $scope.isEditMode = true;
+                    $scope.wod = dataService.getWod($routeParams.id);
+                    var waitFor;
+                    if($scope.wod === undefined){
+                        waitFor = wodService.get($routeParams.id).then(function (wod) {
+                            $scope.wod = wod.data;
+                            return $q.resolve();
+                        });
+                    }else{
+                        waitFor = $q.resolve()
+                    }
+                    waitFor.then(function(){
                         $scope.wod.minutes = getMinutes($scope.wod.time);
                         $scope.wod.seconds = getSeconds($scope.wod.time);
-                    });
+                        $scope.wod.date = new Date($scope.wod.date);
+                        typeOfWodChanged();
+                        checkIfRoundsChanged();
+                    })
                 }
 
             }).catch(function (error) {
@@ -45,11 +60,11 @@
         }
 
         function getMinutes(timespan) {
-            return timespan.split(':')[1];
+            return timespan.substring(0,2);
         }
 
         function getSeconds(timespan) {
-            return timespan.split(':')[2];
+            return timespan.substring(2,4);
         }
         
         function converTimeToString(){
@@ -84,7 +99,7 @@
         }
         
         function typeOfWodChanged (){
-            if($scope.wod.wodType === WOD_TYPE.ROUNDS_WITH_BREAK){
+            if($scope.wod.type === WOD_TYPE.ROUNDS_WITH_BREAK){
                 $scope.isRoundWithBreak = true;
                 initializeRepsInRounds();
                 
@@ -162,13 +177,26 @@
         //the save method
         function save () {
             prepareDataForSaving();
-            wodService.save($scope.wod.id, $scope.wod)
-            .success(function (data) {
+            var result;
+            if($scope.isEditMode){
+                result = wodService.update($scope.wod._id, $scope.wod);
+            }else{
+                result = wodService.save($scope.wod)
+            }
+            result.success(function (data) {
                 $location.path( '/wod');
             }).error(function (error) {
                 $scope.status = 'Unable to load exercises: ' + error.message;
                 console.error('Unable to load exercises: ' + error.message);
             });
+        };
+        
+        function deleteWod(){
+            
+        };
+        
+        function edit(){
+             $location.path('/workouts/edit/' + id);
         };
     }]);
 })();

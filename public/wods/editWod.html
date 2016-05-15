@@ -15,6 +15,7 @@
         <label for="inputCalendar" class="col-sm-2 control-label">Date</label>
         <div class="col-sm-8">
             <p class="input-group">
+                {{wod.date}}
                 <input type="text" id="inputCalendar" class="form-control" uib-datepicker-popup="{{format}}"  ng-model="wod.date" is-open="opened" min-date="2015-01-01" max-date="'2055-06-22'" datepicker-options="dateOptions" show-weeks="false" ng-required="true" close-text="Close" />
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -25,7 +26,7 @@
     <div class="form-group">
         <label for="typeOfWOd" class="col-sm-2 control-label">Type of WOD</label>
         <div class="col-sm-8">
-            <select ng-model="wod.wodType" id="typeOfWOd" class="form-control" ng-change="typeOfWodChanged()" ng-options="item for item in typeOfwod"></select>
+            <select ng-model="wod.type" id="typeOfWOd" class="form-control" ng-change="typeOfWodChanged()" ng-options="item for item in typeOfwod"></select>
         </div>
     </div>
     <div class="form-group">
@@ -42,7 +43,6 @@
             </div>
         </div>
     </div>
-    
     <div class="form-group">
         <label for="inputRoudsOrReps" class="col-sm-2 control-label">Number Rounds/Reps</label>
         <div class="col-sm-8">
@@ -50,7 +50,7 @@
         </div>
     </div>
     <div ng-show="isRoundWithBreak">
-        <reps-in-rounds read-only="false" reps-in-rounds="repsInRounds"></reps-in-rounds>
+        <reps-in-rounds read-only="false" reps-in-rounds="wod.repsInRounds"></reps-in-rounds>
         <div class="form-group">
         <label for="timeOfRest" class="col-sm-2 control-label">Rest between series</label>
         <div class="col-sm-8">

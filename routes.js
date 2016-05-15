@@ -16,7 +16,9 @@ var routes = function(app) {
      * @method InitWebSerivceRoutes
      * */
     function InitWebServiceRoutes(app) {
-        app.route('/api/wod/').get(wodController.getAll).post(wodController.create);
+        app.route('/api/wod/:id?').get(wodController.getAll).post(wodController.create).put(wodController.update);
+        app.route('/api/wod/detail/:id').get(wodController.get);
+        
         app.route('/api/exercise/').get(exerciseController.getAll);
         app.route('/api/maxrep/').get(maxRepController.getAll);
         

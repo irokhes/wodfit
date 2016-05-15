@@ -1,6 +1,6 @@
 (function(){
     'use strict';
-    app.controller('wodController', ['$scope','$location','$filter','WOD_TYPE','wodService', function($scope, $location, $filter,WOD_TYPE, wodService){
+    app.controller('wodController', ['$scope','$location','$filter','WOD_TYPE','wodService', 'dataService', function($scope, $location, $filter,WOD_TYPE, wodService, dataService){
         $scope.isReadOnly = true;
         $scope.workouts = [];
         $scope.totalWorkouts = 0;
@@ -29,8 +29,9 @@
             $location.path('/wod/edit');
         }
 
-        $scope.edit = function (id) {
-            $location.path('/wod/edit/' + id);
+        $scope.edit = function (wod) {
+            dataService.setWod(wod._id, wod);
+            $location.path('/wod/edit/' + wod._id);
         }
 
         $scope.delete = function () {

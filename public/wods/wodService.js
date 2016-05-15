@@ -1,13 +1,13 @@
 ﻿﻿(function () {
     'use strict';
     app.service('wodService', ['$http', function ($http) {
-        var urlBase = 'api/wod';
+        var urlBase = 'api/wod/';
 
         this.getAll = function() {
             return $http.get(urlBase);
         };
         
-        this.save = function(id, wod){
+        this.save = function(wod){
              return $http.post(urlBase,
                 JSON.stringify(wod),
                 {
@@ -17,13 +17,17 @@
                 }
             );
         };
+        
+        this.update = function(id, wod) {
+            return $http.put(urlBase + '/'+ id, wod);
+        }
 
         this.get = function (id) {
-            return $http.get(urlBase + '/'+ id);
+            return $http.get(urlBase + 'detail/'+ id);
         };
 
         this.update = function(id, workout) {
-            return $http.put(urlBase + '/'+ id, workout);
+            return $http.put(urlBase + id, workout);
         }
 
     }]);

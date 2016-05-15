@@ -27,7 +27,6 @@
                                 <i class="pull-right glyphicon"
                                     ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
                             </div>
-                            
                         </div>            
                   </uib-accordion-heading>
                     <div class="container-fluid">Total time of the Wod: {{wod.time | timeFilter}}</div>
@@ -52,8 +51,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="container-fluid">
-                        
+                    <div class="container-fluid pull-right">
+                        <button class="btn btn-info" ng-click="edit(wod)">Edit</button>
+                        <button class="btn btn-danger" ng-click="delete()">Delete</button>
                     </div>
                 </uib-accordion-group>   
             </uib-accordion>

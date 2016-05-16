@@ -21,6 +21,14 @@ var app;
             controller: "maxRepController",
             templateUrl: "maxReps/maxRep.html"
         })
+        .when("/maxrep/edit", {
+            controller: "editMaxRepController",
+            templateUrl: "maxReps/editMaxRep.html"
+        })
+        .when("/maxrep/edit/:id", {
+            controller: "editMaxRepController",
+            templateUrl: "maxReps/editMaxRep.html"
+        })
         .otherwise({ redirectTo: '/wod' });
     });
 })();

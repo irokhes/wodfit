@@ -30,7 +30,7 @@
         }
 
         $scope.edit = function (wod) {
-            dataService.setWod(wod._id, wod);
+            dataService.setData(wod._id, wod);
             $location.path('/wod/edit/' + wod._id);
         }
 

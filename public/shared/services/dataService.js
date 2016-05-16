@@ -1,10 +1,10 @@
 (function(){
     app.service('dataService', function(){
         data = {};
-        this.setWod = function(id, wod){
+        this.setData = function(id, wod){
             data[id] = wod;
         };
-        this.getWod = function(id){
+        this.getData = function(id){
             return data[id];
         };
     });

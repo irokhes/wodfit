@@ -51,7 +51,6 @@ WodService.prototype.save = function(name, type, date, time, exercises,roundsOrT
         return wod.save().then(function (result) {
             return resolve(result);
         }).catch(function(err){
-            console.log(err);
             return reject(err);
         });   
     });  

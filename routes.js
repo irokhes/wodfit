@@ -20,7 +20,9 @@ var routes = function(app) {
         app.route('/api/wod/detail/:id').get(wodController.get);
         
         app.route('/api/exercise/').get(exerciseController.getAll);
-        app.route('/api/maxrep/').get(maxRepController.getAll);
+        
+        app.route('/api/maxrep/:id?').get(maxRepController.getAll).post(maxRepController.create).put(maxRepController.update);
+        app.route('/api/maxrep/detail/:id').get(maxRepController.get);
         
     }
     InitWebServiceRoutes(app);

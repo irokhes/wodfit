@@ -5,46 +5,58 @@
                 <input type="text" ng-model="filterValue" ng-change="filter()" class="form-control" placeholder="Filter Exercises by (Name) or (Muscle Group)" />
             </div>
             <div class="col-md-2 col-xs-4 col-sm-2">
-                <button class="btn btn-primary pull-right" data-ng-click="newExercise()"><span class="glyphicon glyphicon-plus"></span>New</button>
+                <button class="btn btn-primary pull-right" data-ng-click="newPB()"><span class="glyphicon glyphicon-plus"></span>New PB</button>
             </div>
         </div>
         <div class="well well-sm" ng-show="totalExercises == 0">
             <h5>No Exercises found</h5>
         </div>
-        <div ng-show="totalFilteredExercises > 0">
-            <ul class="list-group" ng-repeat="exercise in filteredExercises">
-                <li class="list-group-item">
-                    <div class="row vertical-align">
-                        <div class="col-xs-6 col-md-6">
-                            <a href="" ng-click="showExerciseDetails(exercise.exerciseId)">
-                                <h2>{{exercise.exerciseName}}</h2>
-                            </a>
-                        </div>
-                        <div class="col-xs-2 col-md-2">
-                            <span>{{exercise.weight}} Kgs</span>
-                        </div>
-                        <div class="col-xs-2 col-md-2">
-                            <span>{{exercise.date | date:'dd-MM-yyyy'}}</span>
-                        </div>
-                        <div class=" col-xs-2 col-md-2 btn-group">
-                            <button class="btn-group" data-ng-click="edit(exercise.exerciseId)"><span class="glyphicon glyphicon-pencil"></span></button>
-                            <button class="btn-group" data-ng-click="delete(exercise)"><span class="glyphicon glyphicon-remove"></span></button>
+        <div ng-show="totalFilteredMaxReps > 0">
+            <uib-accordion>
+                <uib-accordion-group ng-repeat="maxRep in filteredMaxReps">
+                    <uib-accordion-heading >
+                        <div class="row vertical-align">
+                            <div class="col-xs-6 col-md-6">{{maxRep.name}}</div>
+                            <div class="col-4">
+                                Personal Best: {{maxRep.pbs[0].weight}}
+                            </div>
+                            <div class="col-2 pull-right">
+                                {{maxRep.pbs[0].date | date:'dd-MM-yyyy'}}
+                                <i class="pull-right glyphicon"
+                                    ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
+                            </div>
+                        </div> 
+                 </uib-accordion-heading>
+                 <div class="container-fluid">
+                    <div ng-if="maxRep.pbs.length == 1">
+                        There are no previous records.
+                    </div>
+                    <div ng-if="maxRep.pbs.length > 1">
+                        <div ng-repeat="pb in maxRep.pbs" ng-if="$index > 0">
+                            <div class="form-group" >
+                                <label class="col-sm-2 control-label">you achived :</label>
+                                <div class="col-sm-8">
+                                    <span>{{pb.weight}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group" >
+                                <label class="col-sm-2 control-label">on :</label>
+                                <div class="col-sm-8">
+                                    <span>{{pb.date}}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-2 col-md-1">
-
-                        </div>
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-
+                 </div>
+                 <div class="container-fluid pull-right">
+                        <button class="btn btn-info" ng-click="edit(maxRep)">Edit</button>
+                        <button class="btn btn-danger" ng-click="delete()">Delete</button>
+                </div>
+                 </uib-accordion-group>   
+            </uib-accordion>
         <div class="row">
-
             <div class="col-md-offset-2 col-md-8 col-md-offset-2 text-center">
-                <div ng-show="totalExercises > 0">
+                <div ng-show="totalMaxReps > 0">
                     <div>
                         <div data-pagination="" data-previous-text="<" data-next-text=">" data-first-text="<<" data-last-text=">>"
                              data-on-select-page="pageChanged(page)" data-total-items="totalExercises" data-page="currentPage"

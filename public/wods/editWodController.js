@@ -34,7 +34,7 @@
 
                 if (typeof $routeParams.id !== 'undefined') {
                     $scope.isEditMode = true;
-                    $scope.wod = dataService.getWod($routeParams.id);
+                    $scope.wod = dataService.getData($routeParams.id);
                     var waitFor;
                     if($scope.wod === undefined){
                         waitFor = wodService.get($routeParams.id).then(function (wod) {

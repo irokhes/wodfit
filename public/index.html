@@ -23,10 +23,10 @@
                 </div>
                 <div class="navbar-collapse collapse" data-collapse="!vm.navbarExpanded">
                     <ul class="nav navbar-nav navbar-right">
-                        <li ng-class="{'active':isActive('/exercise')}"><a href="#/exercise">Exercises</a></li>
                         <li ng-class="{'active':isActive('/wod')}"><a href="#/wod">WODs</a></li>
                         <li ng-class="{'active':isActive('/maxrep')}"><a href="#/maxrep">Max Reps</a></li>
-                        <li ng-class="{'active':isActive('/about')}"><a href="#/about">About</a></li>
+                        <li ng-class="{'active':isActive('/mobility')}"><a href="#/maxrep">Mobility</a></li>
+                        <li ng-class="{'active':isActive('/exercise')}"><a href="#/exercise">Exercises</a></li>
                     </ul>
                 </div>
             </div>
@@ -60,6 +60,7 @@
 
 <!--Directives-->
 <script type="text/javascript" src="shared/directives/repsInRounds.js"></script>
+<script type="text/javascript" src="shared/directives/wodDatepicker/wodDatepicker.js"></script>
 
 <!--Constants-->
 <script type="text/javascript" src="shared/constants/wodTypes.js"></script>
@@ -75,3 +76,4 @@
 <!--Max Reps-->
 <script type="text/javascript" src="maxReps/maxRepController.js"></script>
 <script type="text/javascript" src="maxReps/maxRepService.js"></script>
+<script type="text/javascript" src="maxReps/editMaxRepController.js"></script>

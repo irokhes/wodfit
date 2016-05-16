@@ -1,13 +1,13 @@
 (function() {
     'use strict';
-    app.controller('maxRepController', ['$scope', '$uibModal', '$location', 'maxRepService', '$filter', function ($scope, $uibModal, $location, maxRepService, $filter) {
+    app.controller('maxRepController', ['$scope', '$uibModal', '$location', 'maxRepService', '$filter','dataService', function ($scope, $uibModal, $location, maxRepService, $filter, dataService) {
         $scope.exercices = [];
-        $scope.totalExercises = 0;
-        $scope.filteredExercises = [];
-        $scope.totalFilteredExercises = 0;
+        $scope.totalMaxReps = 0;
+        $scope.filteredMaxReps = [];
+        $scope.totalFilteredMaxReps = 0;
         $scope.filterValue = '';
         $scope.showExerciseDetails = showExerciseDetails;
-        $scope.newExercise = newExercise;
+        $scope.newPB = newPB;
         $scope.edit = edit;
         $scope.deleteExercise = deleteExercise;
         $scope.filter = filter;
@@ -18,15 +18,16 @@
         };
 
         function showExerciseDetails(id) {
-            $location.path('/maxReps/detail/' + id);
+            $location.path('/maxRep/detail/' + id);
         }
 
-        function newExercise() {
-            $location.path('/maxRep/new');
+        function newPB() {
+            $location.path('/maxrep/edit');
         }
 
-        function edit (id) {
-            $location.path('/maxReps/detail/' + id);
+        function edit (maxRep) {
+            dataService.setData(maxRep._id, maxRep);
+            $location.path('/maxrep/edit/' + maxRep._id);
         }
 
         function deleteExercise(exercise) {
@@ -59,14 +60,14 @@
         };
 
         function filterExercises() {
-            $scope.filteredExercises = $filter('maxRepFilter')($scope.exercices, $scope.filterValue);
-            $scope.totalFilteredExercises = $scope.filteredExercises.length;
+            $scope.filteredMaxReps = $filter('maxRepFilter')($scope.maxReps, $scope.filterValue);
+            $scope.totalFilteredMaxReps = $scope.filteredMaxReps.length;
         }
 
         function getExercises() {
             maxRepService.getAll().success(function (exercises) {
-                $scope.exercices = exercises;
-                $scope.totalExercises = $scope.exercices.length;
+                $scope.maxReps = exercises;
+                $scope.totalMaxReps = $scope.maxReps.length;
                 filterExercises();
                 })
             .error(function (error) {

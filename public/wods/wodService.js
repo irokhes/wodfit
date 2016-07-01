@@ -19,16 +19,11 @@
         };
         
         this.update = function(id, wod) {
-            return $http.put(urlBase + '/'+ id, wod);
+            return $http.put(urlBase + id, wod);
         }
 
         this.get = function (id) {
             return $http.get(urlBase + 'detail/'+ id);
         };
-
-        this.update = function(id, workout) {
-            return $http.put(urlBase + id, workout);
-        }
-
     }]);
 })();

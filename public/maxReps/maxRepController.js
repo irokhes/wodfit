@@ -8,6 +8,7 @@
         $scope.filterValue = '';
         $scope.showExerciseDetails = showExerciseDetails;
         $scope.newPB = newPB;
+        $scope.newMaxRep = newMaxRep;
         $scope.edit = edit;
         $scope.deleteExercise = deleteExercise;
         $scope.filter = filter;
@@ -21,8 +22,13 @@
             $location.path('/maxRep/detail/' + id);
         }
 
-        function newPB() {
+        function newPB(maxRep) {
+            $location.path('/maxrep/newPB/' + maxRep._id);
+        }
+
+        function newMaxRep(){
             $location.path('/maxrep/edit');
+            
         }
 
         function edit (maxRep) {

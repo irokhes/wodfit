@@ -25,6 +25,10 @@ var app;
             controller: "editMaxRepController",
             templateUrl: "maxReps/editMaxRep.html"
         })
+        .when("/maxrep/newPB/:id", {
+            controller: "newPBController",
+            templateUrl: "maxReps/newPB.html"
+        })
         .when("/maxrep/edit/:id", {
             controller: "editMaxRepController",
             templateUrl: "maxReps/editMaxRep.html"

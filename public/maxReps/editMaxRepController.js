@@ -3,6 +3,7 @@
     app.controller('editMaxRepController', ['$scope','$q', '$location', '$routeParams', 'maxRepService', '$filter','exerciseService','dataService', function ($scope, $q, $location, $routeParams, maxRepService, $filter, exerciseService, dataService) {
         $scope.isEditMode = false;
         $scope.save = save;
+        
         /*       
         Calendar Options
         */
@@ -10,7 +11,7 @@
         $scope.formData = {};
         $scope.format = 'MM/dd/yyyy';
         $scope.opened = false;
-
+        
         //Datepicker
         $scope.dateOptions = {
             'format': "'yy'",
@@ -25,27 +26,28 @@
             exerciseService.getAll().then(function (exercises) {
                 $scope.exercises = exercises.data;
                 if($routeParams.id !== undefined){
+                    
                     $scope.isEditMode = true;
                     $scope.maxRep = dataService.getData($routeParams.id);
                     var waitFor;
                     if($scope.maxRep === undefined){
                         waitFor = maxRepService.get($routeParams.id).then(function (wod) {
                             $scope.maxRep = wod.data;
+                                                       
                             return $q.resolve();
                         });
                     }else{
                         waitFor = $q.resolve();
                     }
                     waitFor.then(function(){
-                        //$scope.maxRep.date = new Date($scope.wod.date);
-                        
+                        $scope.maxRep.pbs = $scope.maxRep.pbs.map(pb =>{
+                            return {weight: pb.weight, date: new Date(pb.date)}
+                        });
                     })
                 }else{
                     $scope.isEditMode = false;
                     $scope.maxRep = {
-                        pbs:[{
-                            date : new Date()
-                        }]
+                        pbs:[{date : new Date()}]
                     };
                 }
             });
@@ -80,9 +82,9 @@
             }else{
                 result = maxRepService.save($scope.maxRep);
             }
-            result.then(function(){
+            result.success(function(data){
                 $location.path( '/maxRep');
-            }).catch(function(err){
+            }).error(function(err){
                 console.log(err);
             })
         }

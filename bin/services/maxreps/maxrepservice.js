@@ -60,6 +60,7 @@ MaxRepService.prototype.update = function(id, options){
             }
             if (options.pbs !== undefined && Array.isArray(options.pbs)) {
 		        update.pbs = options.pbs;
+                update.pbs = sortPbs(update.pbs);
 		        changed = true;
 		    }
             if (!changed) {
@@ -72,6 +73,12 @@ MaxRepService.prototype.update = function(id, options){
             });  
         });
     });  
+}
+
+function sortPbs(){
+    return pbs.sort(function(a,b) { 
+        return new Date(a.start).getTime() - new Date(b.start).getTime() 
+    });
 }
 
 module.exports = MaxRepService;

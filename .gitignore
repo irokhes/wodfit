@@ -34,3 +34,4 @@ node_modules
 
 #3rd party scripts
 public/components
+.vscode/launch.json

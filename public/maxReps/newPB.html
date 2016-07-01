@@ -5,22 +5,17 @@
             <div class="form-group">
                 <label for="inputNewExerciseName" class="col-sm-2">Exercise Name</label>
                 <div class="col-sm-10">
-                    <input type="text" name="inputNewExerciseName" id="inputNewExerciseName" placeholder="Exercise" ng-model="maxRep.name" list="_exercises" class="form-control">
-                        <datalist id="_exercises">
-                            <option  data-ng-repeat="exercise in exercises" value="{{exercise.name}}">
-                        </datalist> 
+                    <b>{{maxRep.name}}</b>
                 </div>
             </div>
-            <div ng-repeat="pb in maxRep.pbs">
-                <div class="form-group">
-                    <label for="inputName" class="col-sm-2">Date</label>
-                    <div class="col-sm-4">
-                        <wod-datepicker ng-model="pb.date" format="format" date-options="dateOptions" opened="opened" />        
-                    </div>
-                    <label for="inputDescription" class="col-sm-2">Weight</label>
-                    <div class="col-sm-4">
-                        <input type="text" ng-model="pb.weight" class="form-control" id="inputDescription" placeholder="Weight">
-                    </div>
+            <div class="form-group">
+                <label for="inputName" class="col-sm-2">Date</label>
+                <div class="col-sm-4">
+                    <wod-datepicker ng-model="newPB.date" format="format" date-options="dateOptions" opened="opened" />        
+                </div>
+                <label for="inputDescription" class="col-sm-2">Weight</label>
+                <div class="col-sm-4">
+                    <input type="text" ng-model="newPB.weight" class="form-control" id="inputDescription" placeholder="Weight">
                 </div>
             </div>
             <div class="form-group">

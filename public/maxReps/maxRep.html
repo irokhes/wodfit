@@ -5,7 +5,7 @@
                 <input type="text" ng-model="filterValue" ng-change="filter()" class="form-control" placeholder="Filter Exercises by (Name) or (Muscle Group)" />
             </div>
             <div class="col-md-2 col-xs-4 col-sm-2">
-                <button class="btn btn-primary pull-right" data-ng-click="newPB()"><span class="glyphicon glyphicon-plus"></span>New PB</button>
+                <button class="btn btn-primary pull-right" data-ng-click="newMaxRep()"><span class="glyphicon glyphicon-plus"></span>New PB</button>
             </div>
         </div>
         <div class="well well-sm" ng-show="totalExercises == 0">
@@ -49,6 +49,7 @@
                     </div>
                  </div>
                  <div class="container-fluid pull-right">
+                        <button class="btn btn-success" ng-click="newPB(maxRep)">New PB</button>
                         <button class="btn btn-info" ng-click="edit(maxRep)">Edit</button>
                         <button class="btn btn-danger" ng-click="delete()">Delete</button>
                 </div>

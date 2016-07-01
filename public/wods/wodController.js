@@ -1,6 +1,6 @@
 (function(){
     'use strict';
-    app.controller('wodController', ['$scope','$location','$filter','WOD_TYPE','wodService', 'dataService', function($scope, $location, $filter,WOD_TYPE, wodService, dataService){
+    app.controller('wodController', ['$scope','$location','$filter','WOD_TYPE','wodService', 'dataService','modalFactory', function($scope, $location, $filter,WOD_TYPE, wodService, dataService, modalFactory){
         $scope.isReadOnly = true;
         $scope.workouts = [];
         $scope.totalWorkouts = 0;
@@ -35,7 +35,12 @@
         }
 
         $scope.delete = function () {
-            
+            modalFactory.open('Delete Wod', 'Are you sure?').then(function(data){
+                console.log(data);
+                
+            }).catch(function(err){
+                console.log(err);
+            });
         }
 
         $scope.filter = function() {

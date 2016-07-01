@@ -1,7 +1,7 @@
 (function() {
     'use strict';
     app.controller('newPBController', ['$scope','$q', '$location', '$routeParams', 'maxRepService', '$filter','exerciseService','dataService', function ($scope, $q, $location, $routeParams, maxRepService, $filter, exerciseService, dataService) {
-        $scope.save = save;
+        $scope.save = saveNewPB;
         $scope.newPB = {date: new Date()}
         /*       
         Calendar Options
@@ -54,12 +54,13 @@
             });
         }
         
-        function update(){
+        function saveNewPB(){
             var result;
-            $scope.maxRep.pbs.push($scope.newPB._id, $scope.newPB);
-            maxRepService.update($scope.maxRep).then(function(){
+            $scope.maxRep.pbs.push($scope.newPB);
+            maxRepService.update($scope.maxRep._id, $scope.maxRep)
+            .success(function(data){
                 $location.path( '/maxRep');
-            }).catch(function(err){
+            }).error(function(err){
                 console.log(err);
             })
         }

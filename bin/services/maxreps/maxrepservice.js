@@ -75,7 +75,7 @@ MaxRepService.prototype.update = function(id, options){
     });  
 }
 
-function sortPbs(){
+function sortPbs(pbs){
     return pbs.sort(function(a,b) { 
         return new Date(a.start).getTime() - new Date(b.start).getTime() 
     });

@@ -10,11 +10,11 @@
 
                 $scope.ok = function () {
                     modalInstance.close();
-                    defer.resolve();
+                    defer.resolve(true);
                 };
                 $scope.cancel = function () {
-                    $modalInstance.dismiss();
-                    defer.reject();
+                    modalInstance.dismiss();
+                    defer.resolve(false);
                 }
             }
         });

@@ -36,7 +36,11 @@
 
         $scope.delete = function () {
             modalFactory.open('Delete Wod', 'Are you sure?').then(function(data){
-                console.log(data);
+                if(data === true){
+                    console.log('delete');
+                }else{
+                    console.log('cancel');
+                }
                 
             }).catch(function(err){
                 console.log(err);

@@ -8,6 +8,7 @@ var wodSchema = new mongoose.Schema({
     roundsOrTotalReps: {type: Number},
     repsInRounds: {type: Array},
     exercises: {type: Array},
+    ladderRounds: {type: Array},
     timeBetweenSeries: {type: Number}
 });
 

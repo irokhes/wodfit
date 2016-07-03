@@ -5,6 +5,7 @@
         'EMOM' : 'EMOM',
         'AFAP' : 'AFAP',
         'ROUNDS_WITH_BREAK' : 'ROUNDS WITH BREAK',
-        'ROUNDS_FOR_TIME': 'ROUNDS FOR TIME'
+        'ROUNDS_FOR_TIME': 'ROUNDS FOR TIME',
+        'LADDER': 'LADDER'
     })
 })();

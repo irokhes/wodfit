@@ -6,12 +6,14 @@
         $scope.wod = {};
         $scope.newExercise = {};
 
-        $scope.typeOfwod = [WOD_TYPE.ALL, WOD_TYPE.AMRAP,WOD_TYPE.EMOM, WOD_TYPE.AFAP, WOD_TYPE.ROUNDS_WITH_BREAK,WOD_TYPE.ROUNDS_FOR_TIME];
+        $scope.typeOfwod = [WOD_TYPE.ALL, WOD_TYPE.AMRAP,WOD_TYPE.EMOM, WOD_TYPE.AFAP, WOD_TYPE.ROUNDS_WITH_BREAK,WOD_TYPE.ROUNDS_FOR_TIME, WOD_TYPE.LADDER];
         $scope.wod.type = $scope.typeOfwod[0];
 
         $scope.repsInRounds = [];
+        $scope.roundsLadder = [];
         $scope.timeBetweenSeries = 0;
         $scope.isRoundWithBreak = false;
+        $scope.isLadder = false;
         
         $scope.exercises = {};
         $scope.selectedExercise = '';
@@ -48,6 +50,7 @@
                         $scope.wod.minutes = getMinutes($scope.wod.time);
                         $scope.wod.seconds = getSeconds($scope.wod.time);
                         $scope.wod.date = new Date($scope.wod.date);
+                        $scope.wod.roundsOrTotalReps = 0;
                         typeOfWodChanged();
                         checkIfRoundsChanged();
                     })
@@ -101,12 +104,19 @@
         }
         
         function typeOfWodChanged (){
-            if($scope.wod.type === WOD_TYPE.ROUNDS_WITH_BREAK){
-                $scope.isRoundWithBreak = true;
-                initializeRepsInRounds();
-                
-            }else{
-                $scope.isRoundWithBreak = false;
+            switch ($scope.wod.type) {
+                case WOD_TYPE.ROUNDS_WITH_BREAK:
+                    $scope.isRoundWithBreak = true;
+                    initializeRepsInRounds();
+                    break;
+                case WOD_TYPE.LADDER:
+                    $scope.isLadder = true;
+                    initializeRoundsLadder();
+                    break;
+                default:
+                    $scope.isRoundWithBreak = false;
+                    $scope.isLadder = false;
+                    break;
             }
         }
         
@@ -159,10 +169,19 @@
         }
         
         function initializeRepsInRounds(){
+            if(+$scope.wod.roundsOrTotalReps <= 0){
+                return;
+            }
             $scope.repsInRounds = Array(+$scope.wod.roundsOrTotalReps); 
             for(var i = 0; i < +$scope.wod.roundsOrTotalReps; i++){
                 $scope.repsInRounds[i] = {reps:0};
             }
+        }
+        function initializeRoundsLadder(){
+            if(+$scope.wod.roundsOrTotalReps <= 0){
+                return;
+            }
+            $scope.roundsLadder = Array(+$scope.wod.roundsOrTotalReps); 
         }
         function prepareDataForSaving(){
             $scope.wod.time =  converTimeToString();

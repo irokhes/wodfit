@@ -48,7 +48,12 @@
             <input type="text" ng-model="wod.roundsOrTotalReps" ng-blur="checkIfRoundsChanged()" class="form-control" id="inputRoudsOrReps" placeholder="Num Rounds or Reps">
         </div>
     </div>
-    <div ng-show="isRoundWithBreak">
+    <!--<div ng-show="isLadder">
+        <ladder-rounds></ladder-rounds>
+    </div>-->
+    <div ng-if="isRoundWithBreak">
+        hola
+        {{wod.repsInRounds}}
         <reps-in-rounds read-only="false" reps-in-rounds="wod.repsInRounds"></reps-in-rounds>
         <div class="form-group">
         <label for="timeOfRest" class="col-sm-2 control-label">Rest between series</label>

@@ -48,9 +48,6 @@
             <input type="text" ng-model="wod.roundsOrTotalReps" ng-blur="checkIfRoundsChanged()" class="form-control" id="inputRoudsOrReps" placeholder="Num Rounds or Reps">
         </div>
     </div>
-    <!--<div ng-show="isLadder">
-        <ladder-rounds></ladder-rounds>
-    </div>-->
     <div ng-if="isRoundWithBreak">
         <reps-in-rounds read-only="false" reps-in-rounds="repsInRounds" />
         <div class="form-group">
@@ -60,7 +57,7 @@
         </div>
     </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" ng-if="!isLadder">
         <label class="col-sm-2 control-label">Exercises</label>
         <div class="col-sm-8">
             <table class="table table-condensed">
@@ -93,7 +90,7 @@
         </div>
     </div>
     <div ng-if="isLadder" class="form-group">
-        <label class="col-sm-2 control-label">Rounds</label>
+        <label class="col-sm-2 control-label">Ladder</label>
 
         <div class="col-sm-8">
             <ladder-exercises read-only="false" rounds="roundsLadder" exercises-in-rounds="wod.exercises" />

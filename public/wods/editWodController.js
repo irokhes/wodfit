@@ -164,16 +164,23 @@
 
         function checkIfRoundsChanged(){
             if($scope.isRoundWithBreak){
-                if ( !isNaN($scope.wod.roundsOrTotalReps) && angular.isNumber(+$scope.wod.roundsOrTotalReps)) {
+                if($scope.wod.roundsOrTotalReps !== undefined && !isNaN($scope.wod.roundsOrTotalReps) && angular.isNumber(+$scope.wod.roundsOrTotalReps)) {
                     if($scope.repsInRounds.length != $scope.wod.roundsOrTotalReps){
                         initializeRepsInRounds();
+                    }
+                }
+            }
+            if($scope.isLadder){
+                if($scope.wod.roundsOrTotalReps !== undefined && !isNaN($scope.wod.roundsOrTotalReps) && angular.isNumber(+$scope.wod.roundsOrTotalReps)) {
+                    if($scope.roundsLadder.length != $scope.wod.roundsOrTotalReps){
+                        initializeRoundsLadder();
                     }
                 }
             }
         }
         
         function initializeRepsInRounds(){
-            if(+$scope.wod.roundsOrTotalReps <= 0){
+            if($scope.wod.roundsOrTotalReps === undefined || !angular.isNumber(+$scope.wod.roundsOrTotalReps) || +$scope.wod.roundsOrTotalReps <= 0){
                 return;
             }
             $scope.repsInRounds = Array(+$scope.wod.roundsOrTotalReps); 
@@ -182,12 +189,16 @@
             }
         }
         function initializeRoundsLadder(){
-            if(+$scope.wod.roundsOrTotalReps <= 0){
+            if($scope.wod.roundsOrTotalReps === undefined || !angular.isNumber(+$scope.wod.roundsOrTotalReps) || +$scope.wod.roundsOrTotalReps <= 0){
                 return;
             }
             $scope.roundsLadder = Array(+$scope.wod.roundsOrTotalReps); 
             for(var i = 0; i < +$scope.wod.roundsOrTotalReps; i++){
-                $scope.roundsLadder[i] = {reps:0};
+                var roundExercises = [];
+                for(var j = 0; j < +$scope.wod.exercises.length; j++){
+                    roundExercises.push({round: (i + 1), name: $scope.wod.exercises[j].name, weightOrDistance: 0, numReps: 0});
+                }
+                $scope.roundsLadder[i] = roundExercises;
             }
         }
         function prepareDataForSaving(){

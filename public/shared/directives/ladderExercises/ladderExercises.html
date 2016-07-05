@@ -1,14 +1,70 @@
-<div class="form-group">
-    <table class="table table-condensed" ng-repeat="round in rounds">
-        <tbody>
-            <tr ng-repeat="exercise in exercises">
-                <td>
-                    <span>{{exercise.name}}</span>
-                </td>
-                <td><input type="text" name="distance"></td>
-                <td><input type="text" name="weight"></td>
-                
-            </tr>
-        </tbody>
-    </table>
+<div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Exercise</th>                        
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="exercise in exercises">
+                        <td>
+                            <span>{{exercise.name}}</span>
+                        </td>
+                        <td>
+                            <button class="btn-group" data-ng-click="deleteExercise(exercise)">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-condensed">  
+                <thead>
+                    <tr>
+                        <th>Round</th>
+                        <th>Name</th>
+                        <th>Num Reps</th>
+                        <th>Weight or Distance</th>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="round in rounds">
+                    <tr ng-repeat="exercise in round">
+                        <td>                    
+                            <span>{{exercise.round}}</span>
+                        </td>                
+                        <td>                    
+                            <span>{{exercise.name}}</span>
+                        </td>
+                        <td><input type="text" name="numReps" ng-model="exercise.numReps"></td>
+                        <td><input type="text" name="weightOrDistance" ng-model="exercise.weightOrDistance"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--<div class="form-group">
+        <table class="table table-condensed" ng-repeat="round in rounds">
+            <thead>
+                <th>Round</th>
+                <th>Name</th>
+                <th>Weight or Distance</th>
+                <th>Reps</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="exercise in round">
+                    <td>                    
+                        <span>{{exercise.round}}</span>
+                    </td>                
+                    <td>                    
+                        <span>{{exercise.name}}</span>
+                    </td>
+                    <td><input type="text" name="numReps" ng-model="exercise.numReps"></td>
+                    <td><input type="text" name="weightOrDistance" ng-model="exercise.weightOrDistance"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>-->
 </div>

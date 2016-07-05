@@ -29,7 +29,7 @@ WodService.prototype.getAll = function(){
     });
 }
 
-WodService.prototype.save = function(name, type, date, time, exercises,roundsOrTotalReps, repsInRounds,timeBetweenSeries){
+WodService.prototype.save = function(name, type, date, time, exercises,roundsOrTotalReps, repsInRounds,timeBetweenSeries, roundsLadder){
     var self = this;
     return new promise(function(resolve, reject){
         var wod = new Wod({
@@ -47,6 +47,9 @@ WodService.prototype.save = function(name, type, date, time, exercises,roundsOrT
         }
         if(timeBetweenSeries !== undefined){
             wod.timeBetweenSeries = timeBetweenSeries;
+        }
+        if(roundsLadder !== undefined){
+            wod.roundsLadder = roundsLadder;
         }
         return wod.save().then(function (result) {
             return resolve(result);

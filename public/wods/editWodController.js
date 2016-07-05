@@ -50,12 +50,13 @@
                         $scope.wod.minutes = getMinutes($scope.wod.time);
                         $scope.wod.seconds = getSeconds($scope.wod.time);
                         $scope.wod.date = new Date($scope.wod.date);
-                        $scope.wod.roundsOrTotalReps = 0;
                         typeOfWodChanged();
                         checkIfRoundsChanged();
                     })
                 }else{
                     $scope.wod.date = new Date();
+                    $scope.wod.roundsOrTotalReps = 0;
+
                 }
 
             }).catch(function (error) {
@@ -211,6 +212,15 @@
                 var repsInRounds = angular.toJson($scope.repsInRounds);
                 $scope.wod.repsInRounds = JSON.parse(repsInRounds);
                 $scope.wod.timeBetweenSeries = $scope.timeBetweenSeries;
+            }else{
+                $scope.wod.repsInRounds = undefined;
+                $scope.wod.timeBetweenSeries = undefined;
+            }
+            if($scope.isLadder){
+                var roundsLadder = angular.toJson($scope.roundsLadder);
+                $scope.wod.roundsLadder = JSON.parse(roundsLadder);;
+            }else{
+                $scope.wod.roundsLadder = undefined;
             }
         }
         //the save method

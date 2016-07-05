@@ -36,11 +36,12 @@ exports.create = function (req, res, next) {
     var roundsOrTotalReps = req.body.roundsOrTotalReps;
     var exercises = req.body.exercises;
     var repsInRounds = req.body.repsInRounds;
+    var roundsLadder = req.body.roundsLadder;
     var timeBetweenSeries = req.body.timeBetweenSeries;
     
     var self = this;
     var service = new WodService();
-    service.save(name, type, date, time, exercises,roundsOrTotalReps, repsInRounds, timeBetweenSeries).then(function(result) {
+    service.save(name, type, date, time, exercises,roundsOrTotalReps, repsInRounds, timeBetweenSeries, roundsLadder).then(function(result) {
         return self.responseJSON(res,result);
     }).catch(function(err) {
         return self.responseError(res, err, 500);

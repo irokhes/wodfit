@@ -57,6 +57,34 @@
         </div>
     </div>
     </div>
+    <div class="form-group">
+        <div class="col-lg-8 col-lg-offset-2">
+            <div class="form-group col-lg-4">
+                <label for="inputNewExerciseName" class="sr-only">Exercise Name</label>
+                <div>
+                    <input type="text" name="name" placeholder="Exercise" ng-model="selectedExercise" list="_exercises" class="form-control">
+                        <datalist id="_exercises">
+                            <option  data-ng-repeat="exercise in exercises" value="{{exercise.name}}">
+                        </datalist> 
+                </div>
+            </div>
+
+            <div class="form-group col-lg-2">
+                <label for="inputNewExerciseReps" class="sr-only">N. Reps</label>
+                <div>
+                    <input type="text" id="inputNewExerciseReps" ng-model="newExercise.Reps" ng-disabled="isLadder" class="form-control" placeholder="N. Reps">
+                </div>
+            </div>
+            <div class="form-group col-lg-4">
+                <label for="inputNewExerciseWeight" class="sr-only">Weight/Distance</label>
+                <div>
+                    <input type="text" id="inputNewExerciseWeight" ng-model="newExercise.weightOrDistance" ng-disabled="isLadder" class="form-control" placeholder="Weight/Distance">
+                </div>
+            </div>
+
+            <button type="button" ng-disabled="!isExerciseSelected" ng-click="addExercise()" class="btn"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add Exercise</button>
+        </div>           
+    </div>  
     <div class="form-group" ng-if="!isLadder">
         <label class="col-sm-2 control-label">Exercises</label>
         <div class="col-sm-8">
@@ -91,12 +119,12 @@
     </div>
     <div ng-if="isLadder" class="form-group">
         <label class="col-sm-2 control-label">Ladder</label>
-
         <div class="col-sm-8">
             <ladder-exercises read-only="false" rounds="roundsLadder" exercises-in-rounds="wod.exercises" />
         </div>
-    </div>        
-    <div class="well well-sm form-horizontal col-lg-8 col-lg-offset-2">
+    </div>
+   
+    <!--<div class="well well-sm form-horizontal col-lg-8 col-lg-offset-2">
         <div class="form-group col-lg-4">
             <label for="inputNewExerciseName" class="sr-only">Exercise Name</label>
             <div>
@@ -121,7 +149,7 @@
         </div>
 
         <button type="button" ng-disabled="!isExerciseSelected" ng-click="addExercise()" class="btn"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add Exercise</button>
-    </div>
+    </div>-->
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-8">
             <button type="button" ng-click="save()" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;Save</button>

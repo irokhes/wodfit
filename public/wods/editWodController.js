@@ -107,10 +107,14 @@
             switch ($scope.wod.type) {
                 case WOD_TYPE.ROUNDS_WITH_BREAK:
                     $scope.isRoundWithBreak = true;
+                    $scope.isLadder = false;
+
                     initializeRepsInRounds();
                     break;
                 case WOD_TYPE.LADDER:
                     $scope.isLadder = true;
+                    $scope.isRoundWithBreak = false;
+
                     initializeRoundsLadder();
                     break;
                 default:
@@ -182,6 +186,9 @@
                 return;
             }
             $scope.roundsLadder = Array(+$scope.wod.roundsOrTotalReps); 
+            for(var i = 0; i < +$scope.wod.roundsOrTotalReps; i++){
+                $scope.roundsLadder[i] = {reps:0};
+            }
         }
         function prepareDataForSaving(){
             $scope.wod.time =  converTimeToString();

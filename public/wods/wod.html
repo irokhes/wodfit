@@ -30,7 +30,7 @@
                         </div>            
                   </uib-accordion-heading>
                     <div class="container-fluid">Total time of the Wod: {{wod.time | timeFilter}}</div>
-                    <div class="container-fluid">
+                    <div ng-if="!isLadder(wod.type)" class="container-fluid">
                         <table class="table table-striped">
                             <thead>
                                 <th>Exercise name</th>
@@ -41,6 +41,11 @@
                                 <td>{{exercise.numReps}}</td>
                             </tr>
                         </table>
+                    </div>
+                    <div class="container-fluid" ng-if="isLadder(wod.type)">
+                        <div class="col-sm-10">
+                            <ladder-exercises read-only="true" rounds="wod.roundsLadder" exercises-in-rounds="wod.exercises" delete-exercise="deleteExercise" />
+                        </div>
                     </div>
                     <div ng-show="isRoundsWithTimeType(wod.type)">
                         <reps-in-rounds read-only="true" reps-in-rounds="wod.repsInRounds"></reps-in-rounds>

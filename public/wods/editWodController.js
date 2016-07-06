@@ -190,7 +190,11 @@
             }
         }
         function initializeRoundsLadder(){
-            if($scope.wod.roundsOrTotalReps === undefined || !angular.isNumber(+$scope.wod.roundsOrTotalReps) || +$scope.wod.roundsOrTotalReps <= 0){
+            if($scope.wod.roundsOrTotalReps === undefined 
+                || !angular.isNumber(+$scope.wod.roundsOrTotalReps) 
+                || +$scope.wod.roundsOrTotalReps <= 0
+                || $scope.wod.exercises === undefined
+                || +$scope.wod.exercises.length <= 0){
                 return;
             }
             $scope.roundsLadder = Array(+$scope.wod.roundsOrTotalReps); 

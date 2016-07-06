@@ -10,6 +10,7 @@
         $scope.selectedWOD = $scope.typeOfWorkout[0];
         $scope.filterValue = '';
         $scope.isRoundsWithTimeType = isRoundsWithTimeType;
+        $scope.isLadder = isLadder;
         
         init();
 
@@ -19,6 +20,10 @@
         
         function isRoundsWithTimeType(wodType) {
             return wodType === WOD_TYPE.ROUNDS_WITH_BREAK;
+        }
+
+        function isLadder(wodType){
+            return wodType === WOD_TYPE.LADDER;
         }
 
         $scope.showDetails = function(id){

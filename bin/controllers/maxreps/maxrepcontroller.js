@@ -60,3 +60,18 @@ exports.update = function (req, res, next) {
         return self.responseError(res, err, 500);
     });
 }
+
+exports.delete = function (req, res, next) {
+    BaseController.call(this,req, res);
+    var id = req.params.id;
+    if(id === undefined){
+        return this.responseError(res, 'Invalid max rep id');
+    }
+    
+    var service = new MaxRepService();
+    service.delete(id).then((result) =>{
+        return this.responseNotContent(res);
+    }).catch((err) =>{
+        return self.responseError(res, err, 500);
+    });
+}

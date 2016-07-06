@@ -72,3 +72,18 @@ exports.update = function (req, res, next) {
         return self.responseError(res, err, 500);
     });
 }
+
+exports.delete = function (req, res, next) {
+    BaseController.call(this,req, res);
+    var id = req.params.id;
+    if(id === undefined){
+        return this.responseError(res, 'Invalid wod Id');
+    }
+        var self = this;
+    var service = new WodService();
+    service.delete(id).then(function(result) {
+        return self.responseNotContent(res);
+    }).catch(function(err) {
+        return self.responseError(res, err, 500);
+    });
+}

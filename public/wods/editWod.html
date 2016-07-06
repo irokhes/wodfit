@@ -101,15 +101,25 @@
                         <td>
                             <span>{{exercise.name}}</span>
                         </td>
-                        <td><span>{{exercise.numReps}}</span></td>
+                        <td>
+                            <span ng-show="!exercise.editMode">{{exercise.numReps}}</span>
+                             <input type="text" name="numReps" ng-show="exercise.editMode" placeholder="num reps" ng-model="exercise.numReps" class="form-control">
+                        </td>
                         <td>
                             <div>
-                                <span>{{exercise.weightOrDistance}}</span>
+                                <span ng-show="!exercise.editMode">{{exercise.weightOrDistance}}</span>
+                                 <input type="text" name="weightOrDistance" ng-show="exercise.editMode" placeholder="weight or distance" ng-model="exercise.weightOrDistance" class="form-control">
                             </div>
                         </td>
                         <td>
-                            <button class="btn-group" data-ng-click="deleteExercise(exercise)">
+                            <button class="btn-group" ng-show="!exercise.editMode" data-ng-click="deleteExercise(exercise)">
                                 <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                            <button class="btn-group" ng-show="!exercise.editMode" data-ng-click="editExercise(exercise)">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                            <button class="btn-group" ng-show="exercise.editMode" data-ng-click="endEditMode(exercise)">
+                                <span class="glyphicon glyphicon-save"></span>
                             </button>
                         </td>
                     </tr>

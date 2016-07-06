@@ -40,6 +40,12 @@ module.exports = function() {
         }
     };
 
+    this.responseNotContent = function(res){
+        if (!res.headerSent) {
+            res.status(204).send('');
+        }
+    }
+
     this.responseHeader = function(res, header, value){
         res.header(header,value);
     };

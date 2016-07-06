@@ -1,6 +1,6 @@
 (function() {
     'use strict';
-    app.controller('maxRepController', ['$scope', '$uibModal', '$location', 'maxRepService', '$filter','dataService', function ($scope, $uibModal, $location, maxRepService, $filter, dataService) {
+    app.controller('maxRepController', ['$scope', '$uibModal', '$location', 'maxRepService', '$filter','dataService', 'modalFactory', function ($scope, $uibModal, $location, maxRepService, $filter, dataService,modalFactory) {
         $scope.exercices = [];
         $scope.totalMaxReps = 0;
         $scope.filteredMaxReps = [];
@@ -10,7 +10,7 @@
         $scope.newPB = newPB;
         $scope.newMaxRep = newMaxRep;
         $scope.edit = edit;
-        $scope.deleteExercise = deleteExercise;
+        $scope.delete = deleteMaxRep;
         $scope.filter = filter;
         init();
 
@@ -36,29 +36,20 @@
             $location.path('/maxrep/edit/' + maxRep._id);
         }
 
-        function deleteExercise(exercise) {
-            var modalInstance = $uibModal.open({
-                templateUrl: '/app/ModalDialog/template.html',
-                controller: 'ModalDialogCtrl',
-                resolve: {
-                    isOk: function () {
-                        return $scope.isOk;
-                    }
+        function deleteMaxRep(maxRep) {
+            modalFactory.open('Delete Max Rep', 'Are you sure?').then(function(data){
+                if(data === true){
+                    console.log('delete');
+                    maxRepService.delete(maxRep._id).success(function () {
+                        var index = $scope.maxReps.indexOf(maxRep);
+                        $scope.maxReps.splice(index, 1);
+                    }).error(function (error) {
+                        $scope.status = 'Unable delete max Rep: ' + error;
+                    });
                 }
-            });
-
-            modalInstance.result.then(function () {
-                maxRepService.delete(exercise.id).success(function (data) {
-                    console.info('Exercise deleted');
-                    var index = $scope.filteredExercises.indexOf(exercise);
-                    $scope.filteredExercises.splice(index, 1);
-
-                }).error(function (error) {
-                    $scope.status = 'Error deleting exercise: ' + error.message;
-                });
-            }, function () {
-                //modal closed
-            });
+            }).catch(function(err){
+                console.log(err);
+            });                    
         }
 
         function filter() {

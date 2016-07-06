@@ -22,6 +22,8 @@
         $scope.typeOfWodChanged = typeOfWodChanged;
         $scope.addExercise = addExercise;
         $scope.deleteExercise = deleteExercise;
+        $scope.editExercise = editExercise;
+        $scope.endEditMode = endEditMode;
         $scope.save = save;
         $scope.checkIfRoundsChanged = checkIfRoundsChanged;
         $scope.delete = deleteWod;
@@ -93,7 +95,7 @@
             if($scope.wod.exercises === undefined){
                 $scope.wod.exercises = [];
             }
-            $scope.wod.exercises.push({ name: $scope.selectedExercise,
+            $scope.wod.exercises.push({ editMode: false, name: $scope.selectedExercise,
                                         numReps: $scope.newExercise.Reps, 
                                         weightOrDistance: $scope.newExercise.weightOrDistance });
             resetNewExercise();
@@ -102,6 +104,14 @@
         function deleteExercise (exercise) {
             var index = $scope.wod.exercises.indexOf(exercise);
             $scope.wod.exercises.splice(index, 1);
+        }
+
+        function editExercise(exercise){
+            exercise.editMode = true;
+        }
+
+        function endEditMode(exercise){
+            exercise.editMode = false;
         }
         
         function typeOfWodChanged (){

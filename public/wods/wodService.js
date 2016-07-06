@@ -6,6 +6,10 @@
         this.getAll = function() {
             return $http.get(urlBase);
         };
+
+        this.get = function (id) {
+            return $http.get(urlBase + 'detail/'+ id);
+        };
         
         this.save = function(wod){
              return $http.post(urlBase,
@@ -22,8 +26,10 @@
             return $http.put(urlBase + id, wod);
         }
 
-        this.get = function (id) {
-            return $http.get(urlBase + 'detail/'+ id);
-        };
+        this.delete = function(id){
+            return $http.delete(urlBase + id);
+        }
+
+
     }]);
 })();

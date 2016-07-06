@@ -16,12 +16,12 @@ var routes = function(app) {
      * @method InitWebSerivceRoutes
      * */
     function InitWebServiceRoutes(app) {
-        app.route('/api/wod/:id?').get(wodController.getAll).post(wodController.create).put(wodController.update);
+        app.route('/api/wod/:id?').get(wodController.getAll).post(wodController.create).put(wodController.update).delete(wodController.delete);
         app.route('/api/wod/detail/:id').get(wodController.get);
         
         app.route('/api/exercise/').get(exerciseController.getAll);
         
-        app.route('/api/maxrep/:id?').get(maxRepController.getAll).post(maxRepController.create).put(maxRepController.update);
+        app.route('/api/maxrep/:id?').get(maxRepController.getAll).post(maxRepController.create).put(maxRepController.update).delete(maxRepController.delete);
         app.route('/api/maxrep/detail/:id').get(maxRepController.get);
         
     }

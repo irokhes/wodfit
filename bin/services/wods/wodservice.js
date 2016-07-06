@@ -114,4 +114,14 @@ WodService.prototype.update = function(id, options){
     });
 }
 
+WodService.prototype.delete = function(id){
+    return new promise((resolve, reject) =>{
+        Wod.remove({_id: id}).exec().then((wod) =>{
+            return resolve(true);  	
+        }).catch((err)=>{
+            return reject(err);
+        });
+    });
+}
+
 module.exports = WodService;

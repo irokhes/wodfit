@@ -39,12 +39,16 @@
             $location.path('/wod/edit/' + wod._id);
         }
 
-        $scope.delete = function () {
+        $scope.delete = function (wod) {
             modalFactory.open('Delete Wod', 'Are you sure?').then(function(data){
                 if(data === true){
                     console.log('delete');
-                }else{
-                    console.log('cancel');
+                    wodService.delete(wod._id).success(function (workouts) {
+                        var index = $scope.workouts.indexOf(wod);
+                        $scope.workouts.splice(index, 1);
+                    }).error(function (error) {
+                        $scope.status = 'Unable delete wod: ' + error;
+                    });
                 }
                 
             }).catch(function(err){

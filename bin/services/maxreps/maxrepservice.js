@@ -74,7 +74,15 @@ MaxRepService.prototype.update = function(id, options){
         });
     });  
 }
-
+MaxRepService.prototype.delete = function(id){
+    return new promise((resolve, reject) =>{
+        MaxRep.remove({_id: id}).exec().then((wod) =>{
+            return resolve(true);  	
+        }).catch((err)=>{
+            return reject(err);
+        });
+    });
+}
 function sortPbs(pbs){
     return pbs.sort(function(a,b) { 
         return new Date(a.start).getTime() - new Date(b.start).getTime() 

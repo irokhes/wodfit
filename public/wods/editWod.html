@@ -30,16 +30,18 @@
     </div>
     <div class="form-group">
         <label for="typeOfWOd" class="col-sm-2 control-label">Time</label>
+        <div class="col-sm-1">
+            <input type="text" ng-model="wod.minutes" class="form-control" id="inputDescription" placeholder="00">
+        </div>
+        <div class="pull-left">
+            <span class="vertical-align">:</span>
+        </div>
+        <div class="col-sm-1">
+            <input type="text" ng-model="wod.seconds" class="form-control" id="inputDescription" placeholder="00">
+        </div>
+        <label for="timeOfRest" ng-if="isRoundWithBreak" class="col-sm-2 control-label">Rest between series</label>
         <div class="col-sm-2">
-            <div class="col-sm-5">
-                <input type="text" ng-model="wod.minutes" class="form-control" id="inputDescription" placeholder="00">
-            </div>
-            <div class="col-sm-1">
-                <span class="vertical-align">:</span>
-            </div>
-            <div class="col-sm-5">
-                <input type="text" ng-model="wod.seconds" class="form-control" id="inputDescription" placeholder="00">
-            </div>
+            <input type="text" ng-if="isRoundWithBreak" ng-model="wod.timeBetweenSeries" class="form-control" id="timeOfRest" placeholder="Time of rest between series">
         </div>
     </div>
     <div class="form-group">
@@ -49,12 +51,7 @@
         </div>
     </div>
     <div ng-if="isRoundWithBreak">
-        <reps-in-rounds read-only="false" reps-in-rounds="repsInRounds" />
-        <div class="form-group">
-        <label for="timeOfRest" class="col-sm-2 control-label">Rest between series</label>
-        <div class="col-sm-8">
-            <input type="text" ng-model="timeBetweenSeries" class="form-control" id="timeOfRest" placeholder="Time of rest between series">
-        </div>
+        <reps-in-rounds read-only="false" reps-in-rounds="repsInRounds" />       
     </div>
     </div>
     <div class="form-group">

@@ -11,7 +11,6 @@
 
         $scope.repsInRounds = [];
         $scope.roundsLadder = [];
-        $scope.timeBetweenSeries = 0;
         $scope.isRoundWithBreak = false;
         $scope.isLadder = false;
         
@@ -35,7 +34,9 @@
             exerciseService.getAll().then(function (exercises) {
                 $scope.exercises = exercises.data;
                 $scope.wod = { minutes: 0, seconds:0 };
-
+                $scope.wod.date = new Date();
+                $scope.wod.roundsOrTotalReps = 0;
+                $scope.wod.timeBetweenSeries = 0;      
                 if (typeof $routeParams.id !== 'undefined') {
                     $scope.isEditMode = true;
                     $scope.wod = dataService.getData($routeParams.id);
@@ -52,13 +53,15 @@
                         $scope.wod.minutes = getMinutes($scope.wod.time);
                         $scope.wod.seconds = getSeconds($scope.wod.time);
                         $scope.wod.date = new Date($scope.wod.date);
-                        typeOfWodChanged();
-                        checkIfRoundsChanged();
+                        if($scope.wod.type === WOD_TYPE.ROUNDS_WITH_BREAK){
+                            $scope.repsInRounds = $scope.wod.repsInRounds;
+                            $scope.isRoundWithBreak = true;
+                        }
+                        if($scope.wod.type === WOD_TYPE.LADDER){
+                            $scope.roundsLadder = $scope.wod.roundsLadder;
+                            $scope.isLadder = true;                            
+                        }
                     })
-                }else{
-                    $scope.wod.date = new Date();
-                    $scope.wod.roundsOrTotalReps = 0;
-
                 }
 
             }).catch(function (error) {
@@ -120,13 +123,13 @@
                     $scope.isRoundWithBreak = true;
                     $scope.isLadder = false;
 
-                    initializeRepsInRounds();
+                    updateRepsInRounds();
                     break;
                 case WOD_TYPE.LADDER:
                     $scope.isLadder = true;
                     $scope.isRoundWithBreak = false;
 
-                    initializeRoundsLadder();
+                    updateLadderRounds();
                     break;
                 default:
                     $scope.isRoundWithBreak = false;
@@ -177,29 +180,53 @@
             if($scope.isRoundWithBreak){
                 if($scope.wod.roundsOrTotalReps !== undefined && !isNaN($scope.wod.roundsOrTotalReps) && angular.isNumber(+$scope.wod.roundsOrTotalReps)) {
                     if($scope.repsInRounds.length != $scope.wod.roundsOrTotalReps){
-                        initializeRepsInRounds();
+                        updateRepsInRounds();
                     }
                 }
             }
             if($scope.isLadder){
                 if($scope.wod.roundsOrTotalReps !== undefined && !isNaN($scope.wod.roundsOrTotalReps) && angular.isNumber(+$scope.wod.roundsOrTotalReps)) {
                     if($scope.roundsLadder.length != $scope.wod.roundsOrTotalReps){
-                        initializeRoundsLadder();
+                        updateLadderRounds();
                     }
                 }
             }
         }
         
+        function updateRepsInRounds(){
+            if($scope.wod.roundsOrTotalReps === undefined 
+                || !angular.isNumber(+$scope.wod.roundsOrTotalReps) 
+                || +$scope.wod.roundsOrTotalReps <= 0
+                || $scope.repsInRounds.length === +$scope.wod.roundsOrTotalReps){
+                return;
+            }
+            $scope.repsInRounds === undefined || $scope.repsInRounds.length === 0 
+                ? initializeRepsInRounds()
+                : resizeRepsInRounds()
+        }
         function initializeRepsInRounds(){
             if($scope.wod.roundsOrTotalReps === undefined || !angular.isNumber(+$scope.wod.roundsOrTotalReps) || +$scope.wod.roundsOrTotalReps <= 0){
                 return;
             }
-            $scope.repsInRounds = Array(+$scope.wod.roundsOrTotalReps); 
-            for(var i = 0; i < +$scope.wod.roundsOrTotalReps; i++){
-                $scope.repsInRounds[i] = {reps:0};
-            }
+            if($scope.repsInRounds === undefined || $scope.repsInRounds.length === 0){
+                $scope.repsInRounds = new Array(+$scope.wod.roundsOrTotalReps).fill().map(x =>{ return {reps:0}});
+            }       
+            
         }
-        function initializeRoundsLadder(){
+        function resizeRepsInRounds(){
+            if($scope.wod.roundsOrTotalReps === undefined 
+                || !angular.isNumber(+$scope.wod.roundsOrTotalReps) 
+                || +$scope.wod.roundsOrTotalReps <= 0
+                || $scope.repsInRounds.length === +$scope.wod.roundsOrTotalReps){
+                return;
+            }
+            var rounds = +$scope.wod.roundsOrTotalReps;
+            $scope.repsInRounds = $scope.repsInRounds.length > rounds
+            ? $scope.repsInRounds.slice(0, rounds)
+            : [...$scope.repsInRounds, ...new Array(rounds - $scope.repsInRounds.length).fill({reps:0})]
+            return rounds;
+        }
+        function updateLadderRounds(){
             if($scope.wod.roundsOrTotalReps === undefined 
                 || !angular.isNumber(+$scope.wod.roundsOrTotalReps) 
                 || +$scope.wod.roundsOrTotalReps <= 0
@@ -207,15 +234,29 @@
                 || +$scope.wod.exercises.length <= 0){
                 return;
             }
-            $scope.roundsLadder = Array(+$scope.wod.roundsOrTotalReps); 
-            for(var i = 0; i < +$scope.wod.roundsOrTotalReps; i++){
-                var roundExercises = [];
-                for(var j = 0; j < +$scope.wod.exercises.length; j++){
-                    roundExercises.push({round: (i + 1), name: $scope.wod.exercises[j].name, weightOrDistance: 0, numReps: 0});
-                }
-                $scope.roundsLadder[i] = roundExercises;
-            }
+            $scope.roundsLadder === undefined || $scope.roundsLadder.length === 0 
+                ? initializeRoundsLadder()
+                : resizeLadderRounds()
         }
+        function initializeRoundsLadder(){
+            $scope.roundsLadder = addNewLadderRounds(+$scope.wod.roundsOrTotalReps);
+        }
+        function resizeLadderRounds(){
+            var rounds = +$scope.wod.roundsOrTotalReps;
+            $scope.roundsLadder = $scope.roundsLadder.length > rounds
+            ? $scope.roundsLadder.slice(0, rounds)
+            : [...$scope.roundsLadder, ...addNewLadderRounds(rounds - $scope.roundsLadder.length)]
+            return rounds;  
+        }
+        function addNewLadderRounds(numOfRounds){
+            var newLadders = Array(numOfRounds).fill().map((x,i)=>{
+                var round =$scope.wod.exercises.map(exercise =>{
+                    return {round: i + $scope.roundsLadder.length + 1, name: exercise.name, weightOrDistance: 0, numReps: 0}
+                });
+                return round;
+            });
+            return newLadders;
+        }        
         function prepareDataForSaving(){
             $scope.wod.time =  converTimeToString();
             var wodExercises = angular.toJson($scope.wod.exercises);
@@ -224,8 +265,7 @@
             
             if($scope.isRoundWithBreak){
                 var repsInRounds = angular.toJson($scope.repsInRounds);
-                $scope.wod.repsInRounds = JSON.parse(repsInRounds);
-                $scope.wod.timeBetweenSeries = $scope.timeBetweenSeries;
+                $scope.wod.repsInRounds = JSON.parse(repsInRounds);                
             }else{
                 $scope.wod.repsInRounds = undefined;
                 $scope.wod.timeBetweenSeries = undefined;

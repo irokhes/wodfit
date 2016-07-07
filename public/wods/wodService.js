@@ -4,7 +4,7 @@
         var urlBase = 'api/wod/';
 
         this.getAll = function() {
-            return $http.get(urlBase);
+            return $http.get(urlBase, {cache: false});
         };
 
         this.get = function (id) {
